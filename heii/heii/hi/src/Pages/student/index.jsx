@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import Layout from '@/components/layout/Layout';
-import ProfileCard from '@/components/dashboard/ProfileCard';
-import StatsCard from '@/components/dashboard/StatsCard';
+import React from 'react';
+import Layout from '@/components/Student/layout/Layout';
+import ProfileCard from '@/components/Student/Dashboard/ProfileCard';
+import StatsCard from '@/components/Student/Dashboard/StatsCard';
+import { useNavigate } from "react-router-dom";
 import { 
   Card, 
   CardContent, 

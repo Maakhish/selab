@@ -12,7 +12,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import NotificationPanel from "../ui/NotificationPanel";
+import NotificationPanel from "../../ui/NotificationPanel";
 
 const Header = ({ studentName }) => {
   const [darkMode, setDarkMode] = useState(false);

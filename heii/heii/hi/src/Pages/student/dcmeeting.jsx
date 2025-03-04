@@ -1,5 +1,5 @@
 import React,{ useState } from 'react';
-import Layout from '@/components/layout/Layout';
+import Layout from '@/components/Student/layout/Layout';
 import { 
   Card,
   CardContent, 
@@ -262,7 +262,7 @@ const DCMeetings = () => {
               value={activeTab}
               onValueChange={(value) => setActiveTab(value)}
             >
-              <TabsList className="grid grid-cols-5 mb-4">
+              <TabsList className="grid grid-cols-4 mb-4">
                 <TabsTrigger value="draft" className="data-[state=active]:bg-[#A89FE7]/20 data-[state=active]:border-b-2 data-[state=active]:border-[#6A5AE0]">
                   Draft
                 </TabsTrigger>
@@ -275,9 +275,9 @@ const DCMeetings = () => {
                 <TabsTrigger value="rejected" className="data-[state=active]:bg-[#A89FE7]/20 data-[state=active]:border-b-2 data-[state=active]:border-[#6A5AE0]">
                   Rejected
                 </TabsTrigger>
-                <TabsTrigger value="resubmit" className="data-[state=active]:bg-[#A89FE7]/20 data-[state=active]:border-b-2 data-[state=active]:border-[#6A5AE0]">
+                {/* <TabsTrigger value="resubmit" className="data-[state=active]:bg-[#A89FE7]/20 data-[state=active]:border-b-2 data-[state=active]:border-[#6A5AE0]">
                   Resubmit
-                </TabsTrigger>
+                </TabsTrigger> */}
               </TabsList>
               
               {['draft', 'submitted', 'approved', 'rejected', 'resubmit'].map((tab) => (
@@ -364,7 +364,7 @@ const DCMeetings = () => {
                                           Resubmit
                                         </Button>
                                       </DialogTrigger>
-                                      <DialogContent className="sm:max-w-[500px] backdrop-blur-sm bg-white/90 border border-white/40">
+                                      <DialogContent className="sm:max-w-[500px] backdrop-blur-sm bg-white/90 border border-white/40 absolute top-[15%] left-[40%] transform -translate-x-1/2 -translate-y-1/2">
                                         <DialogHeader>
                                           <DialogTitle>Resubmit Meeting</DialogTitle>
                                         </DialogHeader>
@@ -415,7 +415,7 @@ const DCMeetings = () => {
                                   </div>
                                 )}
                                 
-                                {meeting.status === 'resubmit' && (
+                                {/* {meeting.status === 'resubmit' && (
                                   <div className="flex flex-col gap-2">
                                     <Button 
                                       variant="outline" 
@@ -434,7 +434,7 @@ const DCMeetings = () => {
                                       Resubmit
                                     </Button>
                                   </div>
-                                )}
+                                )} */}
                               </td>
                             </tr>
                           ))

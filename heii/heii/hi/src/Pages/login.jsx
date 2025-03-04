@@ -5,9 +5,13 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { FcGoogle } from "react-icons/fc";
 import { Eye, EyeOff } from "lucide-react";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+
+
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [selectedRole, setSelectedRole] = useState(""); 
   const navigate = useNavigate(); // Initialize navigation
 
   // here this is to 
@@ -17,7 +21,18 @@ export default function LoginPage() {
     // Redirect to the backend's OAuth2 login URL
     window.location.href = "http://localhost:8080/oauth2/authorization/google";
   };
-  
+  const handleAdminLogin = () => {
+    if (!selectedRole) {
+      alert("Please select a role"); // Ensure role is selected before navigating
+      return;
+    }
+
+    if (selectedRole === "PhD Guide") {
+      navigate("/index2"); // Navigate to Guide Dashboard
+    } else if (selectedRole === "PhD Coordinator") {
+      navigate("/index3"); // Navigate to Coordinator Dashboard
+    }
+  };
 
   return (
     <div 
@@ -66,10 +81,25 @@ export default function LoginPage() {
 
           {/* Admin Login (Email & Password) */}
           <TabsContent value="Admin">
+            {/* Dropdown for selecting role */}
+            <label className="text-sm font-medium text-white">Role</label>
+            <Select onValueChange={setSelectedRole}>
+              <SelectTrigger className="w-full border-gray-500 bg-gray-800 text-white">
+                <SelectValue placeholder="Select Role" />
+              </SelectTrigger>
+              <SelectContent className="bg-gray-800 text-white">
+                <SelectItem value="PhD Guide">PhD Guide</SelectItem>
+                <SelectItem value="PhD Coordinator">PhD Coordinator</SelectItem>
+              </SelectContent>
+            </Select>
+
             <div className="space-y-3">
               <label className="text-sm font-medium text-white">Username</label>
-              <Input type="text" placeholder="Enter your Admin Username" className="border-gray-500 bg-gray-800 text-white placeholder-gray-400" />
-
+              <Input 
+                type="text" 
+                placeholder="Enter your Username" 
+                className="border-gray-500 bg-gray-800 text-white placeholder-gray-400" 
+              />
               <label className="text-sm font-medium text-white">Password</label>
               <div className="relative">
                 <Input
@@ -86,7 +116,13 @@ export default function LoginPage() {
                 </button>
               </div>
 
-              <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">Login</Button>
+              {/* Admin Login Button */}
+              <Button 
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                onClick={handleAdminLogin} // Call function to handle login
+              >
+                Login
+              </Button>
             </div>
           </TabsContent>
         </Tabs>

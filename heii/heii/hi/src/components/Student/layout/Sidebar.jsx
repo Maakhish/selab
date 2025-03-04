@@ -9,7 +9,7 @@ const navItems = [
   { label: "Comprehensive Exam", href: "/comprehensive_exam", icon: FileText },
   { label: "Publications", href: "/publication", icon: Book },
   { label: "SWAYAM Courses", href: "/swayam_course", icon: GraduationCap },
-  { label: "Notifications", href: "/notification", icon: Bell },
+  // { label: "Notifications", href: "/notification", icon: Bell },
 ];
 
 const Sidebar = () => {
