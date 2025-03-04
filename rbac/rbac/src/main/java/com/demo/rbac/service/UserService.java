@@ -1,0 +1,59 @@
+package com.demo.rbac.service;
+
+import com.demo.rbac.model.User;
+import com.demo.rbac.model.UserRole;
+import com.demo.rbac.repository.UserRepository;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class UserService {
+
+    private final UserRepository userRepository;
+    private final MappingService mappingService;
+
+    @Transactional
+    public User createUser(String email, UserRole role) {
+        return userRepository.findByEmail(email).orElseGet(() -> {
+            User newUser = new User(email, role);
+
+            if (role == UserRole.STUDENT) {
+                String supervisorEmail = mappingService.getSupervisorEmail(email);
+                if (supervisorEmail != null) {
+                    // Find or create supervisor without creating a recursive loop
+                    User supervisor = userRepository.findByEmail(supervisorEmail)
+                            .orElseGet(() -> {
+                                User newSupervisor = new User(supervisorEmail, UserRole.SUPERVISOR);
+                                return userRepository.save(newSupervisor);
+                            });
+                    newUser.setSupervisor(supervisor);
+                }
+            }
+
+            return userRepository.save(newUser);
+        });
+    }
+
+    public boolean isAuthorizedFromMapping(String email, UserRole role) {
+        // am i entering here
+//        System.out.print("entering the isAuthorizedFromMapping function");
+        // for my mail we are entering here
+        return switch (role) {
+            case STUDENT -> {
+                // for my mail we are entering here
+                // go to isStudentInMapping function
+                // go to MappingService Class
+//                System.out.print("entering student role");
+                yield mappingService.isStudentInMapping(email);
+            }
+            case SUPERVISOR -> mappingService.isSupervisorInMapping(email);
+            default -> false; // Coordinators are handled separately
+        };
+    }
+
+
+}
