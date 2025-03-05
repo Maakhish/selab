@@ -74,7 +74,7 @@ const DCInfoCard = ({ dcData, onUpdate }) => {
                 onChange={(e) => handlePersonChange('chair', 'email', e.target.value)}
               />
               {editableData.chair.email && (
-                <a href={`mailto:${editableData.chair.email}`} className="absolute right-3 top-[25%] -translate-y-1/2 text-primary hover:text-primary/80">
+                <a href={`mailto:${editableData.chair.email}`} className="absolute right-3 top-[55%] -translate-y-1/2 text-primary hover:text-primary/80">
                   <Mail className="h-5 w-5" />
                 </a>
               )}
@@ -104,7 +104,7 @@ const DCInfoCard = ({ dcData, onUpdate }) => {
                 onChange={(e) => handlePersonChange('supervisor', 'email', e.target.value)}
               />
               {editableData.supervisor.email && (
-                <a href={`mailto:${editableData.supervisor.email}`} className="absolute right-3 top-[25%] -translate-y-1/2 text-primary hover:text-primary/80 custom-transition">
+                <a href={`mailto:${editableData.supervisor.email}`} className="absolute right-3 top-[55%] -translate-y-1/2 text-primary hover:text-primary/80 custom-transition">
                   <Mail className="h-5 w-5" />
                 </a>
               )}
@@ -151,7 +151,7 @@ const DCInfoCard = ({ dcData, onUpdate }) => {
                     onChange={(e) => handleMemberChange(member.id, 'email', e.target.value)}
                   />
                   {member.email && (
-                    <a href={`mailto:${member.email}`} className="absolute right-3 top-[25%] -translate-y-1/2 text-primary hover:text-primary/80 custom-transition">
+                    <a href={`mailto:${member.email}`} className="absolute right-3 top-[55%] -translate-y-1/2 text-primary hover:text-primary/80 custom-transition">
                       <Mail className="h-5 w-5" />
                     </a>
                   )}

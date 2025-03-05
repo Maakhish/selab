@@ -89,7 +89,7 @@ const StudentInfoCard = ({ studentData, onUpdate }) => {
             <label className="text-sm font-medium text-muted-foreground">Email</label>
 
               <Input value={studentData.email} readOnly className="bg-muted/30 pr-10" placeholder="Email" />
-              <a href={`mailto:${studentData.email}`} className="absolute right-3 top-1/2 -translate-y-1/2 text-primary">
+              <a href={`mailto:${studentData.email}`} className="absolute right-3 top-[70%] -translate-y-1/2 text-primary">
                 <Mail className="h-5 w-5" />
               </a>
               

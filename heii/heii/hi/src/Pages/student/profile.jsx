@@ -9,7 +9,7 @@ const studentData = {
   profilePicture: '/placeholder.svg',
   name: 'Manhaas Nunna',
   rollNumber: 'P220545CS',
-  email: 'adarsh.kumar@example.edu',
+  email: 'man@example.edu',
   orcidId: '0000-0002-1825-0097',
   degree: 'PhD',
   department: 'CSED',
