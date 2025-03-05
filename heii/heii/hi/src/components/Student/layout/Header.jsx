@@ -73,7 +73,7 @@ const Header = ({ studentName }) => {
             <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuLabel>{studentName}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="cursor-pointer">Profile</DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer" onClick={()=>navigate('/profile')}>Profile</DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem 
                 className="cursor-pointer text-destructive"
