@@ -127,7 +127,7 @@ const DCInfoCard = ({ dcData, onUpdate }) => {
             <div key={member.id} className="p-4 border border-gray-300 rounded-lg space-y-4">
               <div className="flex justify-between items-center">
                 <h4 className="font-medium">Member {index + 1}</h4>
-                {editableData.members.length > 2 && (
+                {editableData.members.length > 1 && (
                   <Button onClick={() => removeMember(member.id)} variant="ghost" size="sm" className="text-red-500 hover:bg-red-100 h-8 w-8 p-0">
                     <Minus className="h-4 w-4" />
                   </Button>
