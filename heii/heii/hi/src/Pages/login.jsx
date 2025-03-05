@@ -9,23 +9,49 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const [selectedRole, setSelectedRole] = useState(""); 
+  const [selectedRole, setSelectedRole] = useState("");
   const navigate = useNavigate(); // Initialize navigation
 
   const handleGoogleSignIn = () => {
     window.location.href = "http://localhost:8080/oauth2/authorization/google";
   };
 
-  const handleAdminLogin = () => {
+  // const handleAdminLogin = () => {
+  //   if (selectedRole === "PhD Coordinator") {
+  //     navigate("/index3"); // Navigate to Coordinator Dashboard
+  //   }
+  // };
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const handleAdminLogin = async () => {
     if (selectedRole === "PhD Coordinator") {
-      navigate("/dashboardc"); // Navigate to Coordinator Dashboard
+      try {
+        const response = await fetch("http://localhost:8080/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          localStorage.setItem("role", data.role); // Store role
+          localStorage.setItem("isAuthenticated", "true");
+          window.location.href = "/dashboardc"; // Redirect to dashboard
+        } else {
+          alert("Invalid username or password!");
+        }
+      } catch (error) {
+        console.error("Login failed:", error);
+        alert("Please check your credentials");
+      }
     }
   };
 
   return (
-    <div 
+    <div
       className="flex justify-center items-center min-h-screen bg-cover bg-center"
-      style={{ backgroundImage: "url('/image/img1.png')" }} 
+      style={{ backgroundImage: "url('/image/img1.png')" }}
     >
       <div className="bg-black/80 backdrop-blur-md p-8 rounded-xl shadow-lg w-96">
         <h2 className="text-2xl font-bold text-center text-white">PhD Connect</h2>
@@ -36,16 +62,16 @@ export default function LoginPage() {
         {/* Role Selection */}
         <Tabs defaultValue="student" className="w-full mb-4">
           <TabsList className="flex bg-gray-700/50 p-1 rounded-md w-full">
-            <TabsTrigger 
-              value="student" 
+            <TabsTrigger
+              value="student"
               className="w-1/2 py-2 text-lg font-medium transition 
                          data-[state=active]:bg-white/90 data-[state=active]:shadow 
                          data-[state=active]:text-black data-[state=inactive]:text-gray-300"
             >
               Student
             </TabsTrigger>
-            <TabsTrigger 
-              value="Admin" 
+            <TabsTrigger
+              value="Admin"
               className="w-1/2 py-2 text-lg font-medium transition 
                          data-[state=active]:bg-white/90 data-[state=active]:shadow 
                          data-[state=active]:text-black data-[state=inactive]:text-gray-300"
@@ -57,8 +83,8 @@ export default function LoginPage() {
           {/* Student Login (Google Sign-In Only) */}
           <TabsContent value="student">
             <div className="mt-4">
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="w-full flex items-center gap-2 border-gray-500 bg-gray-800 text-white hover:bg-gray-700"
                 onClick={handleGoogleSignIn}
               >
@@ -82,10 +108,10 @@ export default function LoginPage() {
 
             {selectedRole === "PhD Guide" ? (
               <div className="mt-4">
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   className="w-full flex items-center gap-2 border-gray-500 bg-gray-800 text-white hover:bg-gray-700"
-                  onClick={handleGoogleSignIn}
+                  onClick={()=>navigate('/index2')}
                 >
                   <FcGoogle className="text-lg" /> Sign in with Google
                 </Button>
@@ -93,16 +119,20 @@ export default function LoginPage() {
             ) : selectedRole === "PhD Coordinator" ? (
               <div className="space-y-3">
                 <label className="text-sm font-medium text-white">Username</label>
-                <Input 
-                  type="text" 
-                  placeholder="Enter your Username" 
-                  className="border-gray-500 bg-gray-800 text-white placeholder-gray-400" 
+                <Input
+                  type="text"
+                  placeholder="Enter your Username"
+                  value={username} // ✅ Controlled input
+                  onChange={(e) => setUsername(e.target.value)} // ✅ Update state
+                  className="border-gray-500 bg-gray-800 text-white placeholder-gray-400"
                 />
                 <label className="text-sm font-medium text-white">Password</label>
                 <div className="relative">
                   <Input
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
+                    value={password} // ✅ Controlled input
+                    onChange={(e) => setPassword(e.target.value)} // ✅ Update state
                     className="border-gray-500 bg-gray-800 text-white placeholder-gray-400 pr-10"
                   />
                   <button
@@ -113,14 +143,15 @@ export default function LoginPage() {
                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
                 </div>
-                <Button 
+                <Button
                   className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                  onClick={handleAdminLogin}
+                  onClick={handleAdminLogin} // ✅ Calls the updated function
                 >
                   Login
                 </Button>
               </div>
             ) : null}
+
           </TabsContent>
         </Tabs>
 
