@@ -60,9 +60,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private OAuth2User processOAuth2User(OAuth2User oAuth2User) {
 //        System.out.println("Enter Process the user");
         String email = oAuth2User.getAttribute("email");
-//        System.out.println(email);
+        System.out.println(email);
         // email is successfully obtained here
-        if(email == null || !email.endsWith("@nitc.ac.in")) {
+        // || !email.endsWith("@nitc.ac.in")
+        if(email == null ) {
             System.out.println("Enter 1st if");
             throw new OAuth2AuthenticationException("Email Must be a Valid NITC Email Address");
         }
@@ -80,7 +81,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             // we are entering here for my mail
             System.out.println("Enter else part");
             UserRole role = determineUserRole(email);
-//            System.out.println(role);
+            System.out.println(role);
             // recognising my mail as student
             if(role == null) {
 //                System.out.println("Did we enter here now");
@@ -97,7 +98,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 //                System.out.println("student and supervisor if");
                 // Students and supervisors need to be in the mapping sheet
                 // we are coming here for my mail
-//                System.out.println(email);
+                System.out.println(email);
                 // mail is detected
                 boolean isAuthorized = userService.isAuthorizedFromMapping(email, role);
 
@@ -139,7 +140,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         }
 
         // Check if the email matches the faculty pattern (Supervisors)
-        if (Pattern.compile("^[a-z]+@nitc\\.ac\\.in$").matcher(email).matches()) {
+        // for my gmail to work giving in nitc.ac.in
+        if (Pattern.compile("^[a-z]+@gmail\\.com$").matcher(email).matches()) {
             return UserRole.SUPERVISOR;
         }
 

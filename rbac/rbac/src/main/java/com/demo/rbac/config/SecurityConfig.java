@@ -16,15 +16,19 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import java.util.List;
 
 @Configuration
 public class SecurityConfig {
-    private final OAuth2UserService customOAuth2UserService;
 
-    public SecurityConfig(@Lazy OAuth2UserService customOAuth2UserService) {
+    private final OAuth2UserService customOAuth2UserService;
+    private final AuthenticationFailureHandler customAuthenticationFailureHandler;
+
+    public SecurityConfig(@Lazy OAuth2UserService customOAuth2UserService, AuthenticationFailureHandler customAuthenticationFailureHandler) {
         this.customOAuth2UserService = customOAuth2UserService;
+        this.customAuthenticationFailureHandler = customAuthenticationFailureHandler;
     }
 
     @Bean
@@ -45,8 +49,16 @@ public class SecurityConfig {
                 .oauth2Login(oauth2 -> oauth2
                         .userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))
                         .successHandler((request, response, authentication) -> {
-                            response.sendRedirect("http://localhost:5173/student-dashboard");
+                            // Extract the user roles from authentication
+                            var authorities = authentication.getAuthorities();
+                            String redirectUrl = "http://localhost:5173/student-dashboard";
+                            if(authorities.stream().anyMatch(auth -> auth.getAuthority().equals("SUPERVISOR"))) {
+                                redirectUrl = "http://localhost:5173/supervisor-dashboard";
+                            }
+                            response.sendRedirect(redirectUrl);
                         })
+
+                        .failureHandler(customAuthenticationFailureHandler)
                 )
                 .logout(logout -> logout.logoutSuccessUrl("/"))
                 .exceptionHandling(exception -> exception

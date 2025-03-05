@@ -44,7 +44,17 @@ public class UserService {
                     newUser.setSupervisor(supervisor);
                 }
             }
-
+            if(role == UserRole.SUPERVISOR) {
+//                System.out.println("am i entering create user for supervisor");
+                User newSupervisor = new User(email, UserRole.SUPERVISOR);
+//                System.out.println(newSupervisor.getUserRole().name());
+                newUser = newSupervisor;
+            }
+//            System.out.println("did i come out of that if");
+            // not working for my mail here
+            System.out.println("Checking database connection...");
+            long count = userRepository.count();
+            System.out.println("Database is accessible, total users: " + count);
             return userRepository.save(newUser);
         });
     }
@@ -58,10 +68,12 @@ public class UserService {
                 // for my mail we are entering here
                 // go to isStudentInMapping function
                 // go to MappingService Class
-//                System.out.print("entering student role");
                 yield mappingService.isStudentInMapping(email);
             }
-            case SUPERVISOR -> mappingService.isSupervisorInMapping(email);
+            case SUPERVISOR -> {
+                System.out.println("entering supervisor role");
+                yield mappingService.isSupervisorInMapping(email);
+            }
             default -> false; // Coordinators are handled separately
         };
     }
