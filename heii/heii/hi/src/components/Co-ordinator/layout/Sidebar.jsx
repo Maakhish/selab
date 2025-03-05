@@ -27,11 +27,8 @@ const Sidebar= ({ className }) => {
     { name: 'Dashboard', href: '/dashboardc', icon: LayoutDashboard },
     // { name: 'Add Students', href: '/add-students', icon: UserPlus },
     { name: 'Upload ExcelSheet', href: '/Excelpage', icon: GraduationCap },
-<<<<<<< Updated upstream
+
     { name: 'Swayam Courses', href: '/Cocourses', icon: BookOpen },
-=======
-    { name: 'Swayam Courses', href: '/Co-courses', icon: BookOpen },
->>>>>>> Stashed changes
     { name: 'Comprehensive Exam requests', href: '/co-comprehensive-exam', icon: CheckCircle },
   ];
 
