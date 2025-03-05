@@ -7,29 +7,17 @@ import { FcGoogle } from "react-icons/fc";
 import { Eye, EyeOff } from "lucide-react";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 
-
-
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [selectedRole, setSelectedRole] = useState(""); 
   const navigate = useNavigate(); // Initialize navigation
 
-  // here this is to 
-  // When a user clicks "Sign in with Google" on your React login page
-  // redirect them to the backend's OAuth2 login page.
   const handleGoogleSignIn = () => {
-    // Redirect to the backend's OAuth2 login URL
     window.location.href = "http://localhost:8080/oauth2/authorization/google";
   };
-  const handleAdminLogin = () => {
-    if (!selectedRole) {
-      alert("Please select a role"); // Ensure role is selected before navigating
-      return;
-    }
 
-    if (selectedRole === "PhD Guide") {
-      navigate("/index2"); // Navigate to Guide Dashboard
-    } else if (selectedRole === "PhD Coordinator") {
+  const handleAdminLogin = () => {
+    if (selectedRole === "PhD Coordinator") {
       navigate("/index3"); // Navigate to Coordinator Dashboard
     }
   };
@@ -72,16 +60,15 @@ export default function LoginPage() {
               <Button 
                 variant="outline" 
                 className="w-full flex items-center gap-2 border-gray-500 bg-gray-800 text-white hover:bg-gray-700"
-                onClick={handleGoogleSignIn} // Navigate on click
+                onClick={handleGoogleSignIn}
               >
                 <FcGoogle className="text-lg" /> Sign in with Google
               </Button>
             </div>
           </TabsContent>
 
-          {/* Admin Login (Email & Password) */}
+          {/* Admin Login */}
           <TabsContent value="Admin">
-            {/* Dropdown for selecting role */}
             <label className="text-sm font-medium text-white">Role</label>
             <Select onValueChange={setSelectedRole}>
               <SelectTrigger className="w-full border-gray-500 bg-gray-800 text-white">
@@ -93,37 +80,47 @@ export default function LoginPage() {
               </SelectContent>
             </Select>
 
-            <div className="space-y-3">
-              <label className="text-sm font-medium text-white">Username</label>
-              <Input 
-                type="text" 
-                placeholder="Enter your Username" 
-                className="border-gray-500 bg-gray-800 text-white placeholder-gray-400" 
-              />
-              <label className="text-sm font-medium text-white">Password</label>
-              <div className="relative">
-                <Input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
-                  className="border-gray-500 bg-gray-800 text-white placeholder-gray-400 pr-10"
-                />
-                <button
-                  type="button"
-                  className="absolute inset-y-0 right-3 flex items-center text-gray-400"
-                  onClick={() => setShowPassword(!showPassword)}
+            {selectedRole === "PhD Guide" ? (
+              <div className="mt-4">
+                <Button 
+                  variant="outline" 
+                  className="w-full flex items-center gap-2 border-gray-500 bg-gray-800 text-white hover:bg-gray-700"
+                  onClick={handleGoogleSignIn}
                 >
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
+                  <FcGoogle className="text-lg" /> Sign in with Google
+                </Button>
               </div>
-
-              {/* Admin Login Button */}
-              <Button 
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                onClick={handleAdminLogin} // Call function to handle login
-              >
-                Login
-              </Button>
-            </div>
+            ) : selectedRole === "PhD Coordinator" ? (
+              <div className="space-y-3">
+                <label className="text-sm font-medium text-white">Username</label>
+                <Input 
+                  type="text" 
+                  placeholder="Enter your Username" 
+                  className="border-gray-500 bg-gray-800 text-white placeholder-gray-400" 
+                />
+                <label className="text-sm font-medium text-white">Password</label>
+                <div className="relative">
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Enter your password"
+                    className="border-gray-500 bg-gray-800 text-white placeholder-gray-400 pr-10"
+                  />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-3 flex items-center text-gray-400"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>
+                <Button 
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                  onClick={handleAdminLogin}
+                >
+                  Login
+                </Button>
+              </div>
+            ) : null}
           </TabsContent>
         </Tabs>
 
