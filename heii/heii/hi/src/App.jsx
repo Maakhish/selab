@@ -9,6 +9,9 @@ import Courses from "./Pages/Student/swayam_course";
 import Dashboardg from "./Pages/Guide/index2"; 
 import Profileg from "./Pages/Guide/profile"; 
 import ScholarProfiles from "./Pages/Guide/ScholarProfile"; 
+import  Dashboardc from "./Pages/Co-ordinator/dashboardc.jsx"; 
+import  UploadExcel from "./Pages/Co-ordinator/Excelpage.jsx"; 
+
 // import Index2 from "./Pages/index2"; 
 import "./index.css";
 
@@ -28,6 +31,8 @@ export default function App() {
         <Route path="/index2" element={<Dashboardg />} />  
         <Route path="/profileg" element={<Profileg />} />  
         <Route path="/scholarprofile" element={<ScholarProfiles />} />  
+        <Route path="/dashboardc" element={<Dashboardc />} />  
+        <Route path="/Excelpage" element={<UploadExcel />} />  
       </Routes>
     </Router>
   );

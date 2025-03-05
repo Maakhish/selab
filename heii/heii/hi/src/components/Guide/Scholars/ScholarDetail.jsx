@@ -18,8 +18,8 @@ const ScholarDetail= ({ scholar }) => {
   // In a real app, these would be fetched based on the scholar ID
   const dcMembers = [
     "Dr. Anand Kumar (Guide)",
-    "Dr. Ramesh Iyer (Department Nominee)",
-    "Dr. Suman Gupta (External Member)",
+    "Dr. Ramesh Iyer (Chair)",
+    "Dr. Suman Gupta (Member)",
   ];
 
   const coursework = [
