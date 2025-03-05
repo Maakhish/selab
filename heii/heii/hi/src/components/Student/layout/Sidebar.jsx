@@ -3,7 +3,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { Home, User, Calendar, FileText, Book, GraduationCap, Bell, LogOut, ChevronLeft, ChevronRight } from "lucide-react";
 
 const navItems = [
-  { label: "Dashboard", href: "/index", icon: Home },
+  { label: "Dashboard", href: "/student-dashboard", icon: Home },
   { label: "Profile", href: "/profile", icon: User },
   { label: "DC Meetings", href: "/dcmeeting", icon: Calendar },
   { label: "Comprehensive Exam", href: "/comprehensive_exam", icon: FileText },
