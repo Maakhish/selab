@@ -31,6 +31,7 @@ public class DashboardController {
             case COORDINATOR -> URI.create("redirect:/coordinator-dashboard");
             case SUPERVISOR -> URI.create("redirect:/supervisor-dashboard");
             // For student, redirect to React frontend (index.jsx)
+            // i am being sent here on http://localhost:8080/api/dashboard
             case STUDENT -> URI.create("http://localhost:5173/student-dashboard");
             default -> URI.create("redirect:/");
         };
@@ -49,7 +50,7 @@ public class DashboardController {
     }
 
     // New endpoint to provide student dashboard data as JSON for the React frontend
-    @GetMapping("/student-dashboard-data")
+    @GetMapping("/student-dashboard")
     @ResponseBody
     public ResponseEntity<?> studentDashboardData(@AuthenticationPrincipal CustomUserDetails userDetails) {
         if (userDetails == null) {

@@ -132,6 +132,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         // Check if the email matches the PhD student pattern
         if (Pattern.compile("^[a-z]+_b\\d{6}[a-z]{2}@nitc\\.ac\\.in$").matcher(email).matches()) {
+//            System.out.println("student mail matched");
             return UserRole.STUDENT;
         }
 
