@@ -1,12 +1,8 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
 import Layout from '@/components/Student/layout/Layout';
 import ProfileCard from '@/components/Student/Dashboard/ProfileCard';
 import StatsCard from '@/components/Student/Dashboard/StatsCard';
 import { useNavigate } from "react-router-dom";
-
-// for user email showing
-
 import { 
   Card, 
   CardContent, 
@@ -31,9 +27,9 @@ import {
 const mockProfileData = {
   name: "Manhaas",
   rollNumber: "P220780CS",
-  email: "man@example.edu.in",
+  email: "man@example.edu",
   phone: "+91 9876543210",
-  orcidId: "0000-0001-2345-6789",
+  orcid: "0000-0001-2345-6789",
   avatarUrl: "/placeholder.svg"
 };
 
@@ -70,18 +66,6 @@ const recentPublications = [
 ];
 
 const Index = () => {
-    // to fetch email of student from backend
-    // const [profileData, setProfileData] = useState(mockProfileData);
-    // useEffect(() => {
-    //   console.log("Fetching user profile details for mail....")
-    //   fetch("/api/getUserProfile") // Example API call
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       setProfileData((prev) => ({ ...prev, email: data.email }));
-    //     })
-    //     .catch((err) => console.error("Error fetching user data:", err));
-    // }, []);
-
   return (
     <Layout>
       <div className="space-y-6">
