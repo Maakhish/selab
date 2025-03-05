@@ -30,11 +30,11 @@ const ProfileCard = ({ profileData }) => {
       <CardHeader className="pb-3">
         <div className="flex justify-between items-center">
           <CardTitle>Profile Information</CardTitle>
-          {!isEditing && (
-            <Button onClick={() => setIsEditing(true)} variant="ghost" size="icon">
+          {/* {!isEditing && (
+            <Button onClick={() => setIsEditing(f)} variant="ghost" size="icon">
               <Edit className="h-4 w-4" />
             </Button>
-          )}
+          )} */}
         </div>
       </CardHeader>
       <CardContent>
@@ -54,12 +54,11 @@ const ProfileCard = ({ profileData }) => {
           </div>
 
           <div className="flex-1 space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <ProfileField icon={User} label="Full Name" name="name" value={tempProfile.name} isEditing={isEditing} onChange={handleInputChange} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <ProfileField icon={User} label="Full Name" name="name" value={tempProfile.name}  />
               <ProfileField icon={User} label="Roll Number" value={profile.rollNumber} />
               <ProfileField icon={Mail} label="Email" value={profile.email} />
-              <ProfileField icon={Phone} label="Phone" name="phone" value={tempProfile.phone} isEditing={isEditing} onChange={handleInputChange} />
-              <ProfileField icon={Link} label="ORCID ID" name="orcid" value={tempProfile.orcid} isEditing={isEditing} onChange={handleInputChange} fullWidth />
+              <ProfileField icon={Link} label="ORCID ID" name="orcid" value={tempProfile.orcid}  fullWidth />
             </div>
 
             {isEditing && (

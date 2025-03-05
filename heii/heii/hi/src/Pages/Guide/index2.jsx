@@ -7,9 +7,9 @@ import { Badge } from "@/components/ui/badge";
 const Dashboardg= () => {
   // Sample data for DC meetings only
   const upcomingDCMeetings = [
-    { id: 1, title: "DC Meeting - Rahul Kumar", date: "May 15, 2023", time: "10:00 AM" },
-    { id: 2, title: "DC Meeting - Priya Singh", date: "May 28, 2023", time: "2:00 PM" },
-    { id: 3, title: "DC Meeting - Amit Patel", date: "June 5, 2023", time: "11:30 AM" },
+    { id: 1, title: "DC Meeting - Rahul Kumar", date: "March 12, 2025", time: "10:00 AM" },
+    { id: 2, title: "DC Meeting - Priya Singh", date: "March 10, 2025", time: "2:00 PM" },
+    { id: 3, title: "DC Meeting - Amit Patel", date: "March 15, 2025", time: "11:30 AM" },
   ];
 
   // Sample data for pending requests
@@ -19,7 +19,7 @@ const Dashboardg= () => {
       type: "Course Request", 
       title: "Advanced Machine Learning", 
       scholar: "Rahul Kumar",
-      date: "May 10, 2023",
+      date: "March 10, 2025",
       status: "Pending"
     },
     { 
@@ -27,7 +27,7 @@ const Dashboardg= () => {
       type: "Publication Submission", 
       title: "Neural Networks for Medical Imaging", 
       scholar: "Priya Singh",
-      date: "May 8, 2023",
+      date: "March 8, 2025",
       status: "Pending"
     },
     { 
@@ -35,7 +35,7 @@ const Dashboardg= () => {
       type: "Course Request", 
       title: "Deep Learning Fundamentals", 
       scholar: "Amit Patel",
-      date: "May 5, 2023",
+      date: "March 15, 2025",
       status: "Pending"
     },
   ];

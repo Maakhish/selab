@@ -83,11 +83,11 @@ const ScholarDetail= ({ scholar }) => {
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid grid-cols-5 mb-4">
+          <TabsList className="grid grid-cols-3 mb-4">
             <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="courses">Courses</TabsTrigger>
+            {/* <TabsTrigger value="courses">Courses</TabsTrigger> */}
             <TabsTrigger value="publications">Publications</TabsTrigger>
-            <TabsTrigger value="comprehensive">Comprehensive</TabsTrigger>
+            {/* <TabsTrigger value="comprehensive">Comprehensive</TabsTrigger> */}
             <TabsTrigger value="swayam">SWAYAM</TabsTrigger>
           </TabsList>
           
@@ -152,7 +152,7 @@ const ScholarDetail= ({ scholar }) => {
                   </div>
                 </div>
                 
-                <div>
+                {/* <div>
                   <h3 className="text-sm font-medium mb-2 flex items-center gap-2">
                     <Calendar className="h-4 w-4" /> Important Dates
                   </h3>
@@ -169,8 +169,8 @@ const ScholarDetail= ({ scholar }) => {
                       <span className="text-sm">Submission Deadline:</span>
                       <span className="text-sm font-medium">December 05, 2023</span>
                     </div>
-                  </div>
-                </div>
+                  </div> */}
+                {/* </div> */}
               </div>
             </div>
           </TabsContent>
@@ -335,13 +335,13 @@ const ScholarDetail= ({ scholar }) => {
                   <p className="text-sm text-muted-foreground mt-1">
                     Platform: {course.platform}
                   </p>
-                  {course.certificate && (
+                  {/* {course.certificate && (
                     <div className="mt-2">
                       <a href="#" className="text-sm text-primary hover:underline">
                         View Certificate
                       </a>
                     </div>
-                  )}
+                  )} */}
                 </div>
               ))}
               

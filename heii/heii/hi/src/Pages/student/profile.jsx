@@ -7,7 +7,7 @@ import { useToast } from '@/hooks/use-toast';
 // Mock student data - would come from API in a real app
 const studentData = {
   profilePicture: '/placeholder.svg',
-  name: 'Adarsh Kumar',
+  name: 'Manhaas Nunna',
   rollNumber: 'P220545CS',
   email: 'adarsh.kumar@example.edu',
   orcidId: '0000-0002-1825-0097',

@@ -8,47 +8,47 @@ const SAMPLE_SCHOLARS = [
   {
     id: "1",
     name: "Rahul Kumar",
-    regNo: "P2019001",
+    regNo: "P210020CS",
     department: "Computer Science and Engineering",
     researchArea: "Quantum Computing Applications in Cryptography",
     guide: "Dr. Anand Kumar",
-    admissionYear: "2019",
+    admissionYear: "2021",
   },
   {
     id: "2",
     name: "Priya Singh",
-    regNo: "P2020005",
+    regNo: "P222002CS",
     department: "Electrical Engineering",
     researchArea: "Machine Learning for Medical Diagnostics",
     guide: "Dr. Anand Kumar",
-    admissionYear: "2020",
+    admissionYear: "2022",
   },
   {
     id: "3",
     name: "Amit Patel",
-    regNo: "PHD2018002",
+    regNo: "P221802CS",
     department: "Electronics and Communication",
     researchArea: "Advanced Neural Networks for Image Recognition",
     guide: "Dr. Anand Kumar",
-    admissionYear: "2018",
+    admissionYear: "2022",
   },
   {
     id: "4",
     name: "Deepak Sharma",
-    regNo: "PHD2020010",
+    regNo: "P232010CS",
     department: "Mechanical Engineering",
     researchArea: "Sustainable Energy Systems Optimization",
     guide: "Dr. Anand Kumar",
-    admissionYear: "2020",
+    admissionYear: "2023",
   },
   {
     id: "5",
     name: "Meena Gupta",
-    regNo: "PHD2019007",
+    regNo: "P231907CS",
     department: "Chemical Engineering",
     researchArea: "Natural Language Processing for Regional Languages",
     guide: "Dr. Anand Kumar",
-    admissionYear: "2019",
+    admissionYear: "2023",
   },
 ];
 
@@ -61,7 +61,7 @@ const ScholarProfiles = () => {
   return (
     <PageLayout>
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-2xl font-semibold mb-6">Scholar Profiles</h1>
+        <h1 className="text-2xl font-semibold mb-6">Student Profiles</h1>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-1">

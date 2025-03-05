@@ -4,7 +4,7 @@ import Sidebar from './Sidebar';
 
 const Layout = ({ children }) => {
   // Mock student name - in a real app, this would come from authentication
-  const studentName = "John Doe";
+  const studentName = "Manhaas Nunna";
 
   return (
     <div className="min-h-screen flex">

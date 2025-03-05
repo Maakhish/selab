@@ -28,7 +28,7 @@ const mockProfileData = {
   name: "Manhaas",
   rollNumber: "P220780CS",
   email: "man@example.edu",
-  phone: "+91 9876543210",
+  // phone: "+91 9876543210",
   orcid: "0000-0001-2345-6789",
   avatarUrl: "/placeholder.svg"
 };
@@ -51,17 +51,17 @@ const upcomingMeetings = [
 const recentPublications = [
   {
     id: 1,
-    title: "Machine Learning in Healthcare: A Systematic Review",
+    title: "Deep Learning Approaches for Natural Language Processing in Healthcare",
     journal: "IEEE Transactions on Medical Imaging",
     status: "published",
-    date: "Oct 10, 2024",
+    date: "jan 1, 2024",
   },
   {
     id: 2,
-    title: "Deep Learning for Natural Language Processing",
-    journal: "Journal of Artificial Intelligence Research",
-    status: "under review",
-    date: "Aug 15, 2024",
+    title: "Novel Approaches to Quantum Computing Algorithms",
+    journal: "Physical Review Letters",
+    status: "Editorial Revision",
+    date: "june 15, 2024",
   }
 ];
 
@@ -220,7 +220,7 @@ const Index = () => {
                 )}
               </CardContent>
               <CardFooter className="pt-1">
-                <Button variant="ghost" size="sm" className="w-full justify-between">
+                <Button variant="ghost" size="sm" className="w-full justify-between" onClick ={()=>navigate("/publication")}>
                   <span>View all publications</span>
                   <ChevronRight className="h-4 w-4" />
                 </Button>
@@ -236,17 +236,13 @@ const Index = () => {
                 <CardTitle>Quick Actions</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
-                <Button variant="secondary" size="sm" className="w-full justify-start gap-2">
+                <Button variant="secondary" size="sm" className="w-full justify-start gap-2" onClick={() => navigate('/dcmeeting')}>
                   <PlusCircle className="h-4 w-4" />
                   <span> DC Meeting</span>
                 </Button>
-                <Button variant="secondary" size="sm" className="w-full justify-start gap-2">
+                <Button variant="secondary" size="sm" className="w-full justify-start gap-2" onClick={()=> navigate('/addpublication')}>
                   <PlusCircle className="h-4 w-4" />
                   <span>Add New Publication</span>
-                </Button>
-                <Button variant="secondary" size="sm" className="w-full justify-start gap-2">
-                  <PlusCircle className="h-4 w-4" />
-                  <span>Enroll in SWAYAM Course</span>
                 </Button>
               </CardContent>
             </Card>

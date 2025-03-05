@@ -48,10 +48,10 @@ const Header = ({ studentName }) => {
 
         <div className="flex items-center gap-4">
           {/* Notifications */}
-          <Button variant="ghost" size="icon" onClick={() => setNotificationsOpen(!notificationsOpen)}>
+          {/* <Button variant="ghost" size="icon" onClick={() => setNotificationsOpen(!notificationsOpen)}>
             <Bell className="h-5 w-5" />
           </Button>
-          <NotificationPanel open={notificationsOpen} onClose={() => setNotificationsOpen(false)} />
+          <NotificationPanel open={notificationsOpen} onClose={() => setNotificationsOpen(false)} /> */}
 
           {/* Dark Mode Toggle */}
           <Button variant="ghost" size="icon" onClick={toggleDarkMode}>

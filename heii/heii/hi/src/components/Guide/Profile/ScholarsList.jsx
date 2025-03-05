@@ -13,28 +13,28 @@ const SCHOLARS= [
   {
     id: "1",
     name: "Rahul Kumar",
-    regNo: "PHD2019001",
+    regNo: "P210020CS",
     status: "Active",
     research: "Quantum Computing Applications in Cryptography"
   },
   {
     id: "2",
     name: "Priya Singh",
-    regNo: "PHD2020005",
+    regNo: "P222002CS",
     status: "Active",
     research: "Machine Learning for Medical Diagnostics"
   },
   {
     id: "3",
     name: "Amit Patel",
-    regNo: "PHD2018002",
+    regNo: "P211802CS",
     status: "Completed",
     research: "Advanced Neural Networks for Image Recognition"
   },
   {
     id: "4",
     name: "Deepak Sharma",
-    regNo: "PHD2020010",
+    regNo: "P231802CS",
     status: "Active",
     research: "Sustainable Energy Systems Optimization"
   },

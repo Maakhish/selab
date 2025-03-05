@@ -26,7 +26,7 @@ const Sidebar= ({ className }) => {
   const navigation = [
     { name: 'Dashboard', href: '/index2', icon: LayoutDashboard },
     // { name: 'Add Students', href: '/add-students', icon: UserPlus },
-    { name: 'Scholar Profiles', href: '/scholarprofile', icon: GraduationCap },
+    { name: 'Student Profiles', href: '/scholarprofile', icon: GraduationCap },
     { name: 'DC Meetings', href: '/meetings', icon: Calendar },
     { name: 'Swayam Courses', href: '/courses', icon: BookOpen },
     { name: 'Publications', href: '/publications', icon: FileText },
