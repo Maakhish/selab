@@ -19,7 +19,7 @@ const Dashboardg= () => {
       type: "Course Request", 
       title: "Advanced Machine Learning", 
       scholar: "Rahul Kumar",
-      date: "March 10, 2025",
+      date: "feb 28, 2025",
       status: "Pending"
     },
     { 
@@ -27,7 +27,7 @@ const Dashboardg= () => {
       type: "Publication Submission", 
       title: "Neural Networks for Medical Imaging", 
       scholar: "Priya Singh",
-      date: "March 8, 2025",
+      date: "feb 27, 2025",
       status: "Pending"
     },
     { 
@@ -35,10 +35,11 @@ const Dashboardg= () => {
       type: "Course Request", 
       title: "Deep Learning Fundamentals", 
       scholar: "Amit Patel",
-      date: "March 15, 2025",
+      date: "feb 16, 2025",
       status: "Pending"
     },
   ];
+
 
   return (
     <PageLayout>
