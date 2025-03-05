@@ -18,7 +18,8 @@ export default function App() {
       <Routes>
         
         <Route path="/" element={<Login />} /> {/* Login Page */}
-        <Route path="/index" element={<Index />} /> {/* Home Page (index.jsx) */}
+        {/* this is for student home page on successful login */}
+        <Route path="/student-dashboard" element={<Index />} /> {/* Home Page (index.jsx) */}
         <Route path="/profile" element={<Profile />} /> {/*  (profile.jsx) */}
         <Route path="/dcmeeting" element={<DCMeetings />} /> {/*  (dcmeeting.jsx) */}
         <Route path="/publication" element={<Publications />} /> {/*  (publication.jsx) */}

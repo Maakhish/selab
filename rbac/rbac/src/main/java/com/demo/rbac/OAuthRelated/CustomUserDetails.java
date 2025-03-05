@@ -24,6 +24,9 @@ public class CustomUserDetails implements UserDetails, OAuth2User {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(){
+//        System.out.println("are we entering here");
+        // these authorities are used by UserService
+        System.out.println(user.getUserRole().name());
         return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getUserRole().name()));
     }
 

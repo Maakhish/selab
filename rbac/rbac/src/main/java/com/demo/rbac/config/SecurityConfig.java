@@ -27,7 +27,10 @@ public class SecurityConfig {
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))
-                        .defaultSuccessUrl("/dashboard", true)
+                        // redirect to react front end on successful login
+                        .successHandler((request, response, authentication) -> {
+                            response.sendRedirect("http://localhost:5173/student-dashboard");
+                        })
                 )
                 .logout(logout -> logout.logoutSuccessUrl("/"));
         return http.build();

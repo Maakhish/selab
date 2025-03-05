@@ -35,6 +35,7 @@ public class User {
     }
 
     public UserRole getUserRole() {
+        System.out.println("we are entering here ig getUserRole");
         return userRole;
     }
 }

@@ -66,38 +66,6 @@ const recentPublications = [
 ];
 
 const Index = () => {
-//  for backend
-  const [studentData, setStudentData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        fetch("http://localhost:8080/api/student-dashboard", { credentials: "include" })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Failed to fetch student data");
-                }
-                return response.json();
-            })
-            .then(data => {
-                setStudentData(data);
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error("Error fetching student data:", error);
-                setError("Failed to load student data. Please try again later.");
-                setLoading(false);
-            });
-    }, []);
-
-    if (loading) {
-        return <p className="text-center text-lg">Loading student dashboard...</p>;
-    }
-
-    if (error) {
-        return <p className="text-center text-lg text-red-500">{error}</p>;
-    }
-
   return (
     <Layout>
       <div className="space-y-6">
