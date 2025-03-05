@@ -23,7 +23,7 @@ const DCMeetings = () => {
   const [meetings, setMeetings] = useState([
     {
       id: '1',
-      date: '2023-05-15',
+      date: '2025-01-15',
       time: '10:30 AM',
       fileName: 'DC_Report_May2023.pdf',
       notes: 'First semester progress report',
@@ -31,7 +31,7 @@ const DCMeetings = () => {
     },
     {
       id: '2',
-      date: '2023-08-20',
+      date: '2025-02-20',
       time: '02:00 PM',
       fileName: 'DC_Report_Aug2023.pdf',
       notes: 'Literature review presentation',
@@ -39,7 +39,7 @@ const DCMeetings = () => {
     },
     {
       id: '3',
-      date: '2023-11-10',
+      date: '2025-02-10',
       time: '11:00 AM',
       fileName: 'DC_Report_Nov2023.pdf',
       notes: 'Methodology discussion',
@@ -47,7 +47,7 @@ const DCMeetings = () => {
     },
     {
       id: '4',
-      date: '2024-02-05',
+      date: '2025-02-05',
       time: '09:30 AM',
       fileName: 'DC_Report_Feb2024.pdf',
       notes: 'Initial results presentation',
@@ -56,7 +56,7 @@ const DCMeetings = () => {
     },
     {
       id: '5',
-      date: '2024-04-18',
+      date: '2025-02-18',
       time: '03:15 PM',
       fileName: 'DC_Report_Apr2024.pdf',
       notes: 'Revised results with comparisons',
@@ -156,7 +156,7 @@ const DCMeetings = () => {
               </Button>
             </DialogTrigger>
             
-            <DialogContent  className="sm:max-w-[500px] backdrop-blur-sm bg-white/90 border border-white/40 absolute top-[25%] left-[40%] transform -translate-x-1/2 -translate-y-1/2">
+            <DialogContent  className="sm:max-w-[500px] backdrop-blur-sm bg-white/90 border border-white/40 absolute top-[45%] left-[55%] transform -translate-x-1/2 -translate-y-1/2">
               <DialogHeader>
                 <DialogTitle>Schedule New DC Meeting</DialogTitle>
               </DialogHeader>
@@ -303,9 +303,11 @@ const DCMeetings = () => {
                             >
                               <td className="px-4 py-3 text-sm">{meeting.date}</td>
                               <td className="px-4 py-3 text-sm">{meeting.time}</td>
-                              <td className="px-4 py-3 text-sm flex items-center">
-                                <FileText className="h-4 w-4 mr-1 text-[#3B82F6]" />
-                                {meeting.fileName}
+                              <td className="px-4 py-3 text-sm ">
+                              <div className="flex items-center">
+                                <FileText className="h-4 w-4 mr-2 text-[#3B82F6]" />
+                                <span>{meeting.fileName}</span>
+                                </div>
                               </td>
                               <td className="px-4 py-3 text-sm">{meeting.notes}</td>
                               <td className="px-4 py-3 text-sm">
@@ -364,7 +366,7 @@ const DCMeetings = () => {
                                           Resubmit
                                         </Button>
                                       </DialogTrigger>
-                                      <DialogContent className="sm:max-w-[500px] backdrop-blur-sm bg-white/90 border border-white/40 absolute top-[15%] left-[40%] transform -translate-x-1/2 -translate-y-1/2">
+                                      <DialogContent className="sm:max-w-[500px] backdrop-blur-sm bg-white/90 border border-white/40 absolute top-[45%] left-[55%] transform -translate-x-1/2 -translate-y-1/2">
                                         <DialogHeader>
                                           <DialogTitle>Resubmit Meeting</DialogTitle>
                                         </DialogHeader>

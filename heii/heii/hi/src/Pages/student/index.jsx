@@ -37,13 +37,13 @@ const upcomingMeetings = [
   {
     id: 1,
     title: "DC Committee Meeting",
-    date: "Nov 15, 2024",
+    date: "March 15, 2025",
     status: "scheduled",
   },
   {
     id: 2,
     title: "Progress Review",
-    date: "Dec 05, 2024",
+    date: "March 05, 2025",
     status: "pending",
   }
 ];
@@ -54,14 +54,14 @@ const recentPublications = [
     title: "Deep Learning Approaches for Natural Language Processing in Healthcare",
     journal: "IEEE Transactions on Medical Imaging",
     status: "published",
-    date: "jan 1, 2024",
+    date: "jan 1, 2025",
   },
   {
     id: 2,
     title: "Novel Approaches to Quantum Computing Algorithms",
     journal: "Physical Review Letters",
     status: "Editorial Revision",
-    date: "june 15, 2024",
+    date: "june 15, 2025",
   }
 ];
 
@@ -83,7 +83,7 @@ const Index = () => {
             />
             <StatsCard
               title="DC Meetings"
-              description="Next meeting on Nov 15"
+              description="Next meeting on March 15"
               icon={<Calendar className="h-6 w-6" />}
             
             />
