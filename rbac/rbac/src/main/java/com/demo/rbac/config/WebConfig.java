@@ -15,7 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
     // 5173 is react frontend port number
     @Override
     public void addCorsMappings(CorsRegistry registry){
-        registry.addMapping("/api**") // allow all API endpoints
+        registry.addMapping("/api/**") // allow all API endpoints
                 .allowedOrigins("http://localhost:5173") // React frontend
                 .allowedMethods("GET","POST", "PUT", "DELETE")
                 .allowCredentials(true);

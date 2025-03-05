@@ -3,8 +3,10 @@ package com.demo.rbac.service;
 import com.demo.rbac.model.User;
 import com.demo.rbac.model.UserRole;
 import com.demo.rbac.repository.UserRepository;
+import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -15,11 +17,20 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final MappingService mappingService;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public User createUser(String email, UserRole role) {
+    public User createUser(String email, String password, UserRole role) {
         return userRepository.findByEmail(email).orElseGet(() -> {
             User newUser = new User(email, role);
+
+            if(role == UserRole.COORDINATOR) {
+                String hashedPassword = passwordEncoder.encode(password);
+                newUser = new User(email, hashedPassword, role);
+            }
+            else{
+                newUser = new User(email, role);
+            }
 
             if (role == UserRole.STUDENT) {
                 String supervisorEmail = mappingService.getSupervisorEmail(email);
@@ -55,5 +66,17 @@ public class UserService {
         };
     }
 
+    @PostConstruct
+    public void createDefaultCoordinator() {
+        String email = "coordinator";
+        String rawPassword = "securepassword"; // Default password
+        String hashedPassword = passwordEncoder.encode(rawPassword);
+
+        if (userRepository.findByEmail(email).isEmpty()) {
+            User coordinator = new User(email, hashedPassword, UserRole.COORDINATOR);
+            userRepository.save(coordinator);
+            System.out.println("Default Coordinator Created: username = " + email + ", password = " + rawPassword);
+        }
+    }
 
 }

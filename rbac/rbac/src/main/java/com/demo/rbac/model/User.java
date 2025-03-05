@@ -19,6 +19,11 @@ public class User {
     @Column(unique = true)
     private String email;
 
+    // for coordinator only this exists
+    // for all others it is null
+    @Column(nullable = false)
+    private String password;
+
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
@@ -29,6 +34,11 @@ public class User {
     @JoinColumn(name = "supervisor_id")
     private User supervisor;
 
+    public User(String email, String password, UserRole role){
+        this.email = email;
+        this.password = password;
+        this.userRole = role;
+    }
     public User(String email, UserRole role) {
         this.email = email;
         this.userRole = role;

@@ -90,8 +90,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             if(role == UserRole.COORDINATOR){
 //                System.out.println("coordinator if");
                 // Coordinators can directly register
-                User user = userService.createUser(email, role);
-                return new CustomUserDetails(user, oAuth2User.getAttributes());
+                System.out.println("entered customauth service for coordinator login");
+                throw new OAuth2AuthenticationException("Coordinators must log in using the form-based login.");
             }
             else{
 //                System.out.println("student and supervisor if");
@@ -113,7 +113,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
                 System.out.println("before user creation");
 
-                User user = userService.createUser(email, role);
+                // for all other than coordinator
+                // pass null password
+                User user = userService.createUser(email, "null", role);
                 System.out.println("before end of our function");
                 return new CustomUserDetails(user, oAuth2User.getAttributes());
             }
@@ -122,13 +124,13 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     // since there can be only one coordinator
     // there will be only one coordinator email
-    private static final String COORDINATOR_EMAIL = "coordinator@nitc.ac.in";
+//    private static final String COORDINATOR_EMAIL = "coordinator@nitc.ac.in";
 
     private UserRole determineUserRole(String email) {
         // Check if the email matches the fixed coordinator email
-        if (email.equalsIgnoreCase(COORDINATOR_EMAIL)) {
-            return UserRole.COORDINATOR;
-        }
+//        if (email.equalsIgnoreCase(COORDINATOR_EMAIL)) {
+//            return UserRole.COORDINATOR;
+//        }
 
         // Check if the email matches the PhD student pattern
         if (Pattern.compile("^[a-z]+_b\\d{6}[a-z]{2}@nitc\\.ac\\.in$").matcher(email).matches()) {
