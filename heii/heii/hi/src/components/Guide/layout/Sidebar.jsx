@@ -27,9 +27,9 @@ const Sidebar= ({ className }) => {
     { name: 'Dashboard', href: '/index2', icon: LayoutDashboard },
     // { name: 'Add Students', href: '/add-students', icon: UserPlus },
     { name: 'Student Profiles', href: '/scholarprofile', icon: GraduationCap },
-    { name: 'DC Meetings', href: '/meetings', icon: Calendar },
-    { name: 'Swayam Courses', href: '/courses', icon: BookOpen },
-    { name: 'Publications', href: '/publications', icon: FileText },
+    { name: 'DC Meetings', href: '/meetings_g', icon: Calendar },
+    { name: 'Swayam Courses', href: '/coursesg', icon: BookOpen },
+    { name: 'Publications', href: '/publicationsg', icon: FileText },
     { name: 'Comprehensive Exam', href: '/comprehensive-exam', icon: CheckCircle },
   ];
 

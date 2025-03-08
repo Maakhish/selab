@@ -11,6 +11,11 @@ import Profileg from "./Pages/Guide/profile";
 import ScholarProfiles from "./Pages/Guide/ScholarProfile"; 
 import  Dashboardc from "./Pages/Co-ordinator/dashboardc.jsx"; 
 import  UploadExcel from "./Pages/Co-ordinator/Excelpage.jsx"; 
+import  DCMeetingsg from "./Pages/Guide/DCmeetings.jsx"; 
+import  MeetingApprovals from "./Pages/Guide/meetingapprovals.jsx"; 
+import  Publicationsg from "./Pages/Guide/publication.jsx"; 
+import  Actions from "./Pages/Guide/coursesg.jsx"; 
+import StudentPublications from "./pages/Guide/studentpublications";
 
 // import Index2 from "./Pages/index2"; 
 import "./index.css";
@@ -33,6 +38,11 @@ export default function App() {
         <Route path="/scholarprofile" element={<ScholarProfiles />} />  
         <Route path="/dashboardc" element={<Dashboardc />} />  
         <Route path="/Excelpage" element={<UploadExcel />} />  
+        <Route path="/meetings_g" element={<DCMeetingsg />} />  
+        <Route path="/meetingsapprovals" element={<MeetingApprovals />} />  
+        <Route path="/publicationsg" element={<Publicationsg />} />  
+        <Route path="/coursesg" element={<Actions />} />  
+        <Route path="/student/:id" element={<StudentPublications />} />
       </Routes>
     </Router>
   );
