@@ -128,20 +128,24 @@ const UploadExcel = () => {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-border">
-                      {students.map((student) => (
-                        <tr key={student.id} className="hover:bg-muted/50 transition-colors">
-                          <td className="py-3 px-4">{student.id}</td>
-                          <td className="py-3 px-4 flex items-center">
-                            <User className="h-4 w-4 mr-2 text-muted-foreground" />
-                            {student.name}
-                          </td>
-                          <td className="py-3 px-4 flex items-center">
-                            <UserCog className="h-4 w-4 mr-2 text-muted-foreground" />
-                            {student.guide}
-                          </td>
-                          <td className="py-3 px-4">{student.email}</td>
-                        </tr>
-                      ))}
+                    {students.map((student) => (
+    <tr key={student.id} className="hover:bg-muted/50 transition-colors">
+      <td className="py-3 px-4">{student.id}</td>
+      <td className="py-3 px-4">
+      <span className="py-3 px-4 flex items-center space-x-2">
+        <User className="h-4 w-4 text-muted-foreground" />
+        <span>{student.name}</span>
+        </span>
+      </td>
+      <td className="py-3 px-4 ">
+      <span className="py-3 px-4 flex items-center space-x-2">
+        <UserCog className="h-4 w-4 text-muted-foreground" />
+        <span>{student.guide}</span>
+        </span>
+      </td>
+      <td className="py-3 px-4">{student.email}</td>
+    </tr>
+  ))}
                     </tbody>
                   </table>
                 </div>
@@ -212,20 +216,24 @@ const UploadExcel = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border">
-                    {students.map((student) => (
-                      <tr key={student.id} className="hover:bg-muted/50 transition-colors">
-                        <td className="py-3 px-4">{student.id}</td>
-                        <td className="py-3 px-4 flex items-center">
-                          <User className="h-4 w-4 mr-2 text-muted-foreground" />
-                          {student.name}
-                        </td>
-                        <td className="py-3 px-4 flex items-center">
-                          <UserCog className="h-4 w-4 mr-2 text-muted-foreground" />
-                          {student.guide}
-                        </td>
-                        <td className="py-3 px-4">{student.email}</td>
-                      </tr>
-                    ))}
+                  {students.map((student) => (
+    <tr key={student.id} className="hover:bg-muted/50 transition-colors">
+      <td className="py-3 px-4">{student.id}</td>
+      <td className="py-3 px-4">
+      <span className="py-3 px-4 flex items-center space-x-2">
+        <User className="h-4 w-4 text-muted-foreground" />
+        <span>{student.name}</span>
+        </span>
+      </td>
+      <td className="py-3 px-4 ">
+      <span className="py-3 px-4 flex items-center space-x-2">
+        <UserCog className="h-4 w-4 text-muted-foreground" />
+        <span>{student.guide}</span>
+        </span>
+      </td>
+      <td className="py-3 px-4">{student.email}</td>
+    </tr>
+  ))}
                   </tbody>
                 </table>
               </div>
