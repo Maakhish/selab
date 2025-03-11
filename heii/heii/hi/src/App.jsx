@@ -5,6 +5,7 @@ import Profile from "./Pages/Student/profile";
 import DCMeetings from "./Pages/Student/dcmeeting"; 
 import Publications from "./Pages/Student/publication"; 
 import AddPublication from "./Pages/Student/AddPublication"; 
+import Exam from "./Pages/Student/comprehensive_exam"; 
 import Courses from "./Pages/Student/swayam_course"; 
 import Dashboardg from "./Pages/Guide/index2"; 
 import Profileg from "./Pages/Guide/profile"; 
@@ -47,6 +48,7 @@ export default function App() {
         <Route path="/student/:id" element={<StudentPublications />} />
         <Route path="/Cocourses" element={<CourseExcel />} />
         <Route path="/scholarprofiles" element={<ScholarProfiless />} />
+        <Route path="/exam" element={<Exam />} />
       </Routes>
     </Router>
   );
