@@ -55,7 +55,8 @@ public class SecurityConfig {
                 .requestMatchers("/api/coordinator/**").hasRole("COORDINATOR")
                 .requestMatchers("/api/supervisor/**").hasRole("SUPERVISOR")
                 .requestMatchers("/api/student/**").hasRole("STUDENT")
-                .anyRequest().authenticated()
+                .requestMatchers("/api/students/upload").permitAll()
+                 .anyRequest().authenticated()
             )
             .formLogin(form -> form.disable())
             .oauth2Login(oauth2 -> oauth2
@@ -64,7 +65,7 @@ public class SecurityConfig {
                     try {
                         handleOAuth2Success(request, response, authentication);
                     } catch (Exception e) {
-                        // TODO Auto-generated catch block
+                        
                         e.printStackTrace();
                     }
                 })

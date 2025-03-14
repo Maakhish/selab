@@ -5,7 +5,6 @@ import com.demo.rbac.repository.UserRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,6 +23,10 @@ public class AuthController {
     // for coordinator login
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
+    // @GetMapping("/login")
+    // public ResponseEntity<String> loginPage() {
+    //     return ResponseEntity.ok("Login endpoint is working!");
+    // }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
