@@ -1,5 +1,5 @@
-import { useState, useCallback } from "react";
-import { FileSpreadsheet, User, UserCog, CheckCircle2, Send } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import { FileSpreadsheet, User, UserCog, Eye } from "lucide-react";
 import Layout from "@/components/Co-ordinator/layout/Layout";
 import FileUpload from "@/components/Co-ordinator/FileUpload";
 import { Button } from "@/components/ui/button";
@@ -8,21 +8,54 @@ import { toast } from "sonner";
 const UploadExcel = () => {
   const [file, setFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
-  const [uploadSuccess, setUploadSuccess] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [uploadSuccess, setUploadSuccess] = useState(() => {
+    return localStorage.getItem("uploadCompleted") === "true"; // Check if uploaded
+  });
   const [students, setStudents] = useState([]);
+  const [isViewing, setIsViewing] = useState(false);
+
+  // Fetch student data from the backend
+  const fetchStudents = useCallback(async () => {
+    try {
+      const response = await fetch("http://localhost:8080/api/students/all");
+  
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.status} ${response.statusText}`);
+      }
+  
+      const data = await response.json();
+      console.log("Fetched students:", data);
+  
+      if (data.length > 0) {
+        setStudents(data);
+        setUploadSuccess(true);
+        localStorage.setItem("uploadCompleted", "true");
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+      toast.error(`Fetch error: ${error.message}`);
+    }
+  }, []);
+  
+  
+
+  // Fetch students on page load
+  useEffect(() => {
+    if (localStorage.getItem("uploadCompleted") === "true") {
+      fetchStudents();  // Ensure data is fetched on refresh
+    }
+  }, [fetchStudents]);
+  
 
   // Handle file selection
   const handleFileSelect = useCallback((selectedFile) => {
     setFile(selectedFile);
     setUploadSuccess(false);
-    setIsSubmitted(false);
   }, []);
 
-  // Handle file upload and send to backend
+  // Handle file upload
   const handleUpload = useCallback(async () => {
     if (!file) return;
-
     setIsUploading(true);
 
     const formData = new FormData();
@@ -31,24 +64,17 @@ const UploadExcel = () => {
     try {
       const response = await fetch("http://localhost:8080/api/students/upload", {
         method: "POST",
-        body: formData,  // ✅ Don't set Content-Type manually for FormData
+        body: formData,
         mode: 'cors'
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-    })
-    // .catch(error => console.error('Error:', error));
-    
+      });
 
       if (!response.ok) throw new Error("Failed to upload file");
 
       const data = await response.json();
       setStudents(data);
-      setUploadSuccess(true);
-      
+      setUploadSuccess(true); // Hide upload after first submission
+      localStorage.setItem("uploadCompleted", "true"); // Prevent upload option from appearing
+
       toast.success("Student data processed", {
         description: `${data.length} students imported from ${file.name}`,
       });
@@ -59,27 +85,11 @@ const UploadExcel = () => {
     }
   }, [file]);
 
-  // Handle submission
-  const handleSubmit = useCallback(async () => {
-    if (!uploadSuccess || students.length === 0) return;
-
-    try {
-      const response = await fetch("http://localhost:8080/api/submit-student-guide", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(students),
-      });
-
-      if (!response.ok) throw new Error("Failed to submit data");
-
-      setIsSubmitted(true);
-      toast.success("Student-Guide list submitted", {
-        description: `${students.length} student records added successfully.`,
-      });
-    } catch (error) {
-      toast.error("Failed to submit student data");
-    }
-  }, [uploadSuccess, students]);
+  // Fetch latest student data when "View Student Details" is clicked
+  const handleViewStudents = () => {
+    setIsViewing(true);
+    fetchStudents(); // Ensure fresh data is fetched
+  };
 
   return (
     <Layout>
@@ -92,9 +102,9 @@ const UploadExcel = () => {
           Upload an Excel sheet containing student information and their assigned guides.
         </p>
 
-        {!isSubmitted ? (
+        {!uploadSuccess ? (
           <>
-            {/* File Upload Section */}
+            {/* File Upload Section (ONLY SHOWS ON FIRST UPLOAD) */}
             <div className="bg-white rounded-xl p-6 shadow-sm border border-border mb-8">
               <h2 className="text-xl font-semibold mb-4">Upload Excel File</h2>
               <FileUpload onFileSelect={handleFileSelect} accept=".xlsx,.xls,.csv" maxSize={5} />
@@ -102,24 +112,28 @@ const UploadExcel = () => {
               <div className="mt-6">
                 <Button 
                   onClick={handleUpload} 
-                  disabled={!file || isUploading || uploadSuccess}
+                  disabled={!file || isUploading}
                   className="w-full sm:w-auto"
                 >
                   {isUploading ? "Processing..." : "Process Excel Data"}
                 </Button>
               </div>
             </div>
+          </>
+        ) : (
+          <>
+            {/* View Student Details Button */}
+            <div className="mt-6">
+              <Button onClick={handleViewStudents} className="flex items-center gap-2">
+                <Eye className="h-4 w-4" />
+                View Student Details
+              </Button>
+            </div>
 
-            {/* Processed Student List */}
-            {uploadSuccess && students.length > 0 && (
-              <div className="bg-white rounded-xl p-6 shadow-sm border border-border animate-slide-up mb-6">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-semibold">Processed Students</h2>
-                  <Button onClick={handleSubmit} className="flex items-center gap-2" disabled={students.length === 0}>
-                    <Send className="h-4 w-4" />
-                    Submit Student List
-                  </Button>
-                </div>
+            {/* Student List Display */}
+            {isViewing && students.length > 0 && (
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-border animate-slide-up mt-6">
+                <h2 className="text-xl font-semibold mb-4">Student-Guide List</h2>
 
                 <div className="overflow-auto">
                   <table className="w-full border-collapse">
@@ -135,14 +149,18 @@ const UploadExcel = () => {
                       {students.map((student) => (
                         <tr key={student.id} className="hover:bg-muted/50 transition-colors">
                           <td className="py-3 px-4">{student.id}</td>
-                          <td className="py-3 px-4 flex items-center space-x-2">
-                            <User className="h-4 w-4 text-muted-foreground" />
-                            <span>{student.name}</span>
-                          </td>
-                          <td className="py-3 px-4 flex items-center space-x-2">
-                            <UserCog className="h-4 w-4 text-muted-foreground" />
-                            <span>{student.guide}</span>
-                          </td>
+                          <td className="py-3 px-4">
+      <span className="py-3 px-4 flex items-center space-x-2">
+        <User className="h-4 w-4 text-muted-foreground" />
+        <span>{student.name}</span>
+        </span>
+      </td>
+      <td className="py-3 px-4 ">
+      <span className="py-3 px-4 flex items-center space-x-2">
+        <UserCog className="h-4 w-4 text-muted-foreground" />
+        <span>{student.guide}</span>
+        </span>
+      </td>
                           <td className="py-3 px-4">{student.email}</td>
                         </tr>
                       ))}
@@ -152,29 +170,6 @@ const UploadExcel = () => {
               </div>
             )}
           </>
-        ) : (
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-green-100 animate-fade-in">
-            <div className="flex flex-col items-center py-6">
-              <div className="bg-green-50 p-4 rounded-full mb-4">
-                <CheckCircle2 className="h-12 w-12 text-green-500" />
-              </div>
-              <h2 className="text-2xl font-bold text-green-700 mb-2">Student List Submitted</h2>
-              <p className="text-muted-foreground mb-6">
-                {students.length} students have been successfully added to the system.
-              </p>
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setFile(null);
-                  setUploadSuccess(false);
-                  setIsSubmitted(false);
-                  setStudents([]);
-                }}
-              >
-                Upload Another List
-              </Button>
-            </div>
-          </div>
         )}
       </div>
     </Layout>
