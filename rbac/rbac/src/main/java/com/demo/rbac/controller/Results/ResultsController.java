@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.demo.rbac.model.Results;
-import com.demo.rbac.service.ResultsService;
+import com.demo.rbac.service.Results.ResultsService;
 
 import java.util.List;
 import org.slf4j.Logger;

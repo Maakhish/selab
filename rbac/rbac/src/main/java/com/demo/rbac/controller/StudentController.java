@@ -1,20 +1,36 @@
 package com.demo.rbac.controller;
 
-import com.demo.rbac.OAuthRelated.CustomUserDetails;
-import com.demo.rbac.model.User;
-import com.demo.rbac.model.UserRole;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
+import com.demo.rbac.model.Student;
+import com.demo.rbac.service.StudentService;
+
 import java.util.List;
-import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/students")
+@CrossOrigin(origins = "http://localhost:5173")
 public class StudentController {
 
+    @Autowired
+    private StudentService studentService;
+
+    @PostMapping("/upload")
+    public ResponseEntity<List<Student>> uploadFile(@RequestParam("file") MultipartFile file) {
+        try {
+            List<Student> savedStudents = studentService.saveStudentsFromExcel(file);  // ✅ Get saved students
+            return ResponseEntity.ok(savedStudents);  // ✅ Return the student list
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null); // Return an empty response in case of failure
+        }
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Student>> getAllStudents() {
+        List<Student> students = studentService.getAllStudents();  // ✅ Get students from DB
+        return ResponseEntity.ok(students);  // ✅ Return students
+    }
 }
