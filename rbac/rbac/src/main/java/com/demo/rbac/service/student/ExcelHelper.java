@@ -52,6 +52,7 @@ public class ExcelHelper {
                 String studentEmail = formatter.formatCellValue(row.getCell(2)).trim();
                 String guideEmail = formatter.formatCellValue(row.getCell(5)).trim();
                 String admissionSchemeStr = formatter.formatCellValue(row.getCell(3)).trim().toUpperCase();
+                String dateofjoin = formatter.formatCellValue(row.getCell(6)).trim();
 
 
                 // Create Student object (Guide lookup happens in StudentService)
@@ -63,6 +64,7 @@ public class ExcelHelper {
                 student.setAdmissionscheme(admissionSchemeStr); // Set admission scheme
                 student.setOrcid(null);  // ORCID will be updated later
                 student.setAreaofresearch(null); // Area of research will be updated later
+                student.setDateofjoin(dateofjoin); // Area of research will be updated later
 
                 students.add(student);
             }
