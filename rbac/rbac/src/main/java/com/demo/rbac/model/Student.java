@@ -23,4 +23,10 @@ public class Student extends User{
 
     @Enumerated(EnumType.STRING)
     private UserRole userRole = UserRole.STUDENT;
+    // @Enumerated(EnumType.STRING)
+    private String admissionscheme; // New column
+    // @Enumerated(EnumType.STRING)
+    // private AdmissionScheme admissionScheme; // New column
+    private String areaofresearch;
+    private String orcid; // New ORCID field
 }

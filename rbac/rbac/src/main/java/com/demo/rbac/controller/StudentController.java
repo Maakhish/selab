@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.demo.rbac.model.Student;
-import com.demo.rbac.service.StudentService;
+import com.demo.rbac.service.student.StudentService;
 
 import java.util.List;
 

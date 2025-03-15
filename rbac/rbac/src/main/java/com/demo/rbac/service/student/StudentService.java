@@ -1,4 +1,4 @@
-package com.demo.rbac.service;
+package com.demo.rbac.service.student;
 
 import com.demo.rbac.dto.StudentGuideDTO;
 import org.springframework.beans.factory.annotation.Autowired;

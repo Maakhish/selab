@@ -13,9 +13,10 @@ import java.util.Optional;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, String> {
 
-    @Query("SELECT new com.demo.rbac.dto.StudentGuideDTO(s.id, s.name, s.email, g.name, g.email) " +
+    @Query("SELECT new com.demo.rbac.dto.StudentGuideDTO(s.id, s.name, s.email,s.admissionscheme,s.orcid,s.areaofresearch,g.name, g.email) " +
             "FROM Student s LEFT JOIN s.guide g")
     List<StudentGuideDTO> findAllWithGuides();
+   
 
     Optional<Student> findByEmail(String email);
     boolean existsByEmail(String email);

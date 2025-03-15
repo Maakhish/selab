@@ -6,7 +6,8 @@ import com.demo.rbac.model.User;
 import com.demo.rbac.model.UserRole;
 import com.demo.rbac.repository.GuideRepository;
 import com.demo.rbac.repository.StudentRepository;
-import com.demo.rbac.service.StudentService;
+import com.demo.rbac.service.student.StudentService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;

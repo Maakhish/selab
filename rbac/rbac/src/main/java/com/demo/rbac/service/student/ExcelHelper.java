@@ -1,10 +1,11 @@
-package com.demo.rbac.service;
+package com.demo.rbac.service.student;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.demo.rbac.model.Student;
+//import com.demo.rbac.model.AdmissionScheme;
 import com.demo.rbac.model.Guide;
 import com.demo.rbac.repository.GuideRepository;
 
@@ -47,9 +48,11 @@ public class ExcelHelper {
 
                 String studentRoll = formatter.formatCellValue(row.getCell(0)).trim();
                 String studentName = formatter.formatCellValue(row.getCell(1)).trim();
-                String guideName = formatter.formatCellValue(row.getCell(2)).trim();
-                String studentEmail = formatter.formatCellValue(row.getCell(3)).trim();
-                String guideEmail = formatter.formatCellValue(row.getCell(4)).trim();
+                String guideName = formatter.formatCellValue(row.getCell(4)).trim();
+                String studentEmail = formatter.formatCellValue(row.getCell(2)).trim();
+                String guideEmail = formatter.formatCellValue(row.getCell(5)).trim();
+                String admissionSchemeStr = formatter.formatCellValue(row.getCell(3)).trim().toUpperCase();
+
 
                 // Create Student object (Guide lookup happens in StudentService)
                 Student student = new Student();
@@ -57,6 +60,9 @@ public class ExcelHelper {
                 student.setName(studentName);
                 student.setGuide(new Guide(guideName, guideEmail)); // Just assigning temporarily
                 student.setEmail(studentEmail);
+                student.setAdmissionscheme(admissionSchemeStr); // Set admission scheme
+                student.setOrcid(null);  // ORCID will be updated later
+                student.setAreaofresearch(null); // Area of research will be updated later
 
                 students.add(student);
             }
