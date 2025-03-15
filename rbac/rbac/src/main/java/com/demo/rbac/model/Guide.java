@@ -1,5 +1,6 @@
 package com.demo.rbac.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,7 +29,8 @@ public class Guide extends User {
         this.email = email;
     }
 
-    @OneToMany(mappedBy = "guide") // One guide has multiple students
+    @OneToMany(mappedBy = "guide", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // One guide has multiple students
+    @JsonManagedReference
     private List<Student> students;
 
     public UserRole getUserRole(){

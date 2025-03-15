@@ -1,5 +1,6 @@
 package com.demo.rbac.service;
 
+import com.demo.rbac.dto.StudentGuideDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,16 +36,28 @@ public class StudentService {
 
             for (Student student : students) {
                 Guide tempGuide = student.getGuide();
-                Optional<Guide> existingGuide = guideRepository.findByEmail(tempGuide.getEmail());
 
-                Guide savedGuide = existingGuide.orElseGet(() -> {
-                    Guide newGuide = new Guide();
-                    newGuide.setName(tempGuide.getName());
-                    newGuide.setEmail(tempGuide.getEmail());
-                    return guideRepository.save(newGuide); // Save guide if new
-                });
+                // Check if guide info is provided
+                if (tempGuide != null && tempGuide.getEmail() != null) {
+                    Optional<Guide> existingGuide = guideRepository.findByEmail(tempGuide.getEmail());
 
-                student.setGuide(savedGuide); // Associate student with guide
+                    Guide savedGuide = existingGuide.orElseGet(() -> {
+                        Guide newGuide = new Guide();
+                        newGuide.setName(tempGuide.getName());
+                        newGuide.setEmail(tempGuide.getEmail());
+                        return guideRepository.save(newGuide); // Save new guide
+                    });
+
+                    // Ensure the name is always updated
+                    if (!existingGuide.isEmpty() && tempGuide.getName() != null) {
+                        savedGuide.setName(tempGuide.getName());
+                        guideRepository.save(savedGuide);
+                    }
+
+                    student.setGuide(savedGuide); // Associate student with guide
+                } else {
+                    student.setGuide(null); // Handle students with no guide
+                }
             }
 
             return studentRepository.saveAll(students);  // Save students with correct guide
@@ -55,5 +68,9 @@ public class StudentService {
 
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
+    }
+
+    public List<StudentGuideDTO> getAllStudentsWithGuides() {
+        return studentRepository.findAllWithGuides(); // Fetch students along with guides
     }
 }

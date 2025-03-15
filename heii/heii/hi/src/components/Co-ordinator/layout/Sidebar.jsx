@@ -10,7 +10,7 @@ import { Home, User, Calendar, Book, Bell, LogOut, ChevronLeft, ChevronRight,  L
 
 const navItems = [
   { label: "Dashboard", href: "/dashboardc", icon: LayoutDashboard  },
-  { label: "Upload ExcelSheet", href: "/Excelpage", icon: GraduationCap  },
+  { label: "Upload Students", href: "/Excelpage", icon: GraduationCap  },
   { label: "Student Profiles", href: "/scholarprofiles", icon: GraduationCap  },
   { label: "SWAYAM Courses", href: "/Cocourses", icon: BookOpen },
   { label: "Comprehensive Exam Management", href: "/cocompre", icon: CheckCircle }

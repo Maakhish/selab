@@ -1,5 +1,6 @@
 package com.demo.rbac.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,8 +15,9 @@ public class Student extends User{
     @Id
     private String roll; // Example: P202300CS
     private String name;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "guide_id") // Foreign key column in the "students" table
+    @JsonIgnore
     private Guide guide;
     private String email;
 

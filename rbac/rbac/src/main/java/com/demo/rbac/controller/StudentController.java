@@ -1,5 +1,6 @@
 package com.demo.rbac.controller;
 
+import com.demo.rbac.dto.StudentGuideDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +30,8 @@ public class StudentController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Student>> getAllStudents() {
-        List<Student> students = studentService.getAllStudents();  // ✅ Get students from DB
-        return ResponseEntity.ok(students);  // ✅ Return students
+    public ResponseEntity<List<StudentGuideDTO>> getAllStudents() {
+        List<StudentGuideDTO> students = studentService.getAllStudentsWithGuides();  // Get students from DB
+        return ResponseEntity.ok(students);  // Return students
     }
 }
