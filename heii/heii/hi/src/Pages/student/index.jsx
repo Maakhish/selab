@@ -26,7 +26,6 @@ import axios from 'axios';
 
 // Mock data - Unchanged fields
 const mockProfileData = {
-  rollNumber: "P220780CS",
   orcid: "0000-0001-2345-6789",
   avatarUrl: "/placeholder.svg"
 };
@@ -78,11 +77,12 @@ const Index = () => {
         });
 
         // Check if response has data
-        if (response.data && response.data.name && response.data.email) {
+        if (response.data && response.data.name && response.data.email && response.data.rollNumber) {
           setProfileData(prevData => ({
             ...prevData,
             name: response.data.name,
-            email: response.data.email
+            email: response.data.email,
+            rollNumber: response.data.rollNumber
           }));
         } else {
           throw new Error('Invalid response format');
