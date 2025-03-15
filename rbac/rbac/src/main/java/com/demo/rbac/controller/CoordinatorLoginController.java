@@ -1,11 +1,10 @@
 package com.demo.rbac.controller;
 
-import com.demo.rbac.model.User;
-import com.demo.rbac.repository.UserRepository;
+import com.demo.rbac.model.Coordinator;
+import com.demo.rbac.repository.CoordinatorRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,11 +19,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-public class AuthController {
+public class CoordinatorLoginController {
     // for coordinator login
     private final AuthenticationManager authenticationManager;
-    private final UserRepository userRepository;
-
+    private final CoordinatorRepository coordinatorRepository;
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         // Authenticate the user
@@ -36,9 +34,9 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // Find user in database
-        Optional<User> user = userRepository.findByEmail(request.username());
-        if (user.isPresent()) {
-            return ResponseEntity.ok(new LoginResponse("Login successful!", user.get().getUserRole().name()));
+        Optional<Coordinator> coordinator = coordinatorRepository.findByUsername(request.username());
+        if (coordinator.isPresent()) {
+            return ResponseEntity.ok(new LoginResponse("Login successful!", coordinator.get().getUserRole().name()));
         } else {
             return ResponseEntity.status(401).body("Invalid credentials");
         }

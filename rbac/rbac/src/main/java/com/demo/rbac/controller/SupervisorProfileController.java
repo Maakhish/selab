@@ -11,10 +11,10 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/user")
-public class UserProfileController {
+public class SupervisorProfileController {
 
-    @GetMapping("/profile")
-    public Map<String, String> getProfile(@AuthenticationPrincipal OAuth2User oAuth2User) {
+    @GetMapping("/super")
+    public Map<String, String> getSupervisorProfile(@AuthenticationPrincipal OAuth2User oAuth2User) {
         if (oAuth2User == null) {
             throw new RuntimeException("User not authenticated");
         }
@@ -22,17 +22,10 @@ public class UserProfileController {
         // Extracting user information from OAuth2User
         String name = oAuth2User.getAttribute("name");
         String email = oAuth2User.getAttribute("email");
-        // obtaining roll no from here itself
-        int endIdx = email.indexOf("nitc.ac.in");
-        endIdx--;
-        int startIdx = endIdx - 9;
-        String sub = email.substring(startIdx, endIdx);
-        String rollno = sub.toUpperCase();
         // Preparing the response as a JSON object
         Map<String, String> response = new HashMap<>();
         response.put("name", name);
         response.put("email", email);
-        response.put("rollNumber", rollno);
 
         return response;
     }

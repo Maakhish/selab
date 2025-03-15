@@ -2,26 +2,36 @@ package com.demo.rbac.service;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.demo.rbac.model.Student;
+import com.demo.rbac.model.Guide;
+import com.demo.rbac.repository.GuideRepository;
 
 import java.io.*;
 import java.util.*;
 
+@Service // ✅ Marks as Spring-managed service
 public class ExcelHelper {
 
     private static final List<String> ACCEPTED_TYPES = Arrays.asList(
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // XLSX
-        "application/vnd.ms-excel" // XLS
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // XLSX
+            "application/vnd.ms-excel" // XLS
     );
+
+    private final GuideRepository guideRepository;
+
+    public ExcelHelper(GuideRepository guideRepository) {
+        this.guideRepository = guideRepository;
+    }
 
     public static boolean hasExcelFormat(MultipartFile file) {
         return ACCEPTED_TYPES.contains(file.getContentType());
     }
 
-    public static List<Student> excelToStudents(InputStream inputStream) {
+    public List<Student> excelToStudents(InputStream inputStream) {
         List<Student> students = new ArrayList<>();
-        DataFormatter formatter = new DataFormatter(); // ✅ Handles different data types
+        DataFormatter formatter = new DataFormatter(); // Handles different data types
 
         try (Workbook workbook = new XSSFWorkbook(inputStream)) {
             Sheet sheet = workbook.getSheetAt(0);
@@ -30,18 +40,23 @@ public class ExcelHelper {
 
             while (rows.hasNext()) {
                 Row row = rows.next();
-                if (firstRow) { // ✅ Skip header row
+                if (firstRow) { // Skip header row
                     firstRow = false;
                     continue;
                 }
 
-                Student student = new Student();
+                String studentRoll = formatter.formatCellValue(row.getCell(0)).trim();
+                String studentName = formatter.formatCellValue(row.getCell(1)).trim();
+                String guideName = formatter.formatCellValue(row.getCell(2)).trim();
+                String studentEmail = formatter.formatCellValue(row.getCell(3)).trim();
+                String guideEmail = formatter.formatCellValue(row.getCell(4)).trim();
 
-                // ✅ Handle potential null values safely
-                student.setId(formatter.formatCellValue(row.getCell(0)).trim());
-                student.setName(formatter.formatCellValue(row.getCell(1)).trim());
-                student.setGuide(formatter.formatCellValue(row.getCell(2)).trim());
-                student.setEmail(formatter.formatCellValue(row.getCell(3)).trim());
+                // Create Student object (Guide lookup happens in StudentService)
+                Student student = new Student();
+                student.setRoll(studentRoll);
+                student.setName(studentName);
+                student.setGuide(new Guide(guideName, guideEmail)); // Just assigning temporarily
+                student.setEmail(studentEmail);
 
                 students.add(student);
             }
@@ -49,6 +64,6 @@ public class ExcelHelper {
             throw new RuntimeException("Error processing Excel file: " + e.getMessage());
         }
 
-        return students;
+        return students; // Return students, do NOT save here
     }
 }
