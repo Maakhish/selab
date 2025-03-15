@@ -55,6 +55,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/coordinator/**").hasRole("COORDINATOR")
                 .requestMatchers("/api/supervisor/**").hasRole("SUPERVISOR")
                 .requestMatchers("/api/student/**").hasRole("STUDENT")
+                    .requestMatchers("api/user/profile").permitAll()
                 .requestMatchers("/api/students/upload").permitAll()
                 .requestMatchers("/api/students/all").permitAll()
                 .requestMatchers("/api/courses/all").permitAll()

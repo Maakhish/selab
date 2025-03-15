@@ -22,11 +22,17 @@ public class UserProfileController {
         // Extracting user information from OAuth2User
         String name = oAuth2User.getAttribute("name");
         String email = oAuth2User.getAttribute("email");
-
+        // obtaining roll no from here itself
+        int endIdx = email.indexOf("nitc.ac.in");
+        endIdx--;
+        int startIdx = endIdx - 9;
+        String sub = email.substring(startIdx, endIdx);
+        String rollno = sub.toUpperCase();
         // Preparing the response as a JSON object
         Map<String, String> response = new HashMap<>();
         response.put("name", name);
         response.put("email", email);
+        response.put("rollNumber", rollno);
 
         return response;
     }

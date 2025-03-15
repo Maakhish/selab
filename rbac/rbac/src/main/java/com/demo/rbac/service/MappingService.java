@@ -86,7 +86,7 @@ public class MappingService {
     }
 
     public boolean isSupervisorInMapping(String email) {
-        authorizedSupervisors.add("manhaas2004@gmail.com");
+        authorizedSupervisors.add("pmsmaahisai@gmai.com");
         System.out.println("will my personal mail work2");
         return authorizedSupervisors.contains(email);
     }
