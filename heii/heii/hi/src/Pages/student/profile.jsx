@@ -8,7 +8,6 @@ import axios from 'axios';
 // Mock student data - keep other fields unchanged
 const mockStudentData = {
   profilePicture: '/placeholder.svg',
-  rollNumber: 'P220545CS',
   orcidId: '0000-0002-1825-0097',
   degree: 'PhD',
   department: 'CSED',
@@ -48,7 +47,8 @@ const Profile = () => {
         setStudent(prevStudent => ({
           ...prevStudent,
           name: response.data.name,
-          email: response.data.email
+          email: response.data.email,
+          rollNumber : response.data.rollNumber
         }));
 
       } catch (error) {
