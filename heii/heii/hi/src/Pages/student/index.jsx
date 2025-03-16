@@ -148,11 +148,11 @@ const Index = () => {
                 <h2 className="text-xl font-semibold mb-2">Complete Your Profile</h2>
                 {!profileData.orcid && (
                   <div className="mb-4">
-                    <label className="block text-sm mb-1">ORCID:</label>
+                    <label className="text-sm font-medium text-muted-foreground">ORCID:</label>
                     <input
                       type="text"
                       placeholder="Enter your ORCID"
-                      className="input input-bordered w-full"
+                      className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       value={orcidInput}
                       onChange={(e) => setOrcidInput(e.target.value)}
                     />
@@ -163,7 +163,7 @@ const Index = () => {
                     <label className="block text-sm mb-1">Research Area:</label>
                     <textarea
                       placeholder="Enter your Research Area"
-                      className="input input-bordered w-full"
+                      className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       value={researchInput}
                       onChange={(e) => setResearchInput(e.target.value)}
                     />
