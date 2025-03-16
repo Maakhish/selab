@@ -85,4 +85,9 @@ public class StudentService {
     public Optional<Student> getStudentByRollNumber(String rollNumber) {
         return studentRepository.findById(rollNumber);
     }
+
+    // ✅ NEW METHOD: Update student details
+    public Student updateStudent(Student student) {
+        return studentRepository.save(student); // Save updated student details
+    }
 }

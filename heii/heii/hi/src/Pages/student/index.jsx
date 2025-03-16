@@ -136,7 +136,7 @@ const Index = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <Layout>
+    <Layout >
       <div className="space-y-6">
         {/* Display ProfileCard with current profileData */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

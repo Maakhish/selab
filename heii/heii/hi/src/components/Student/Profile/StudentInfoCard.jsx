@@ -1,20 +1,19 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Save, Upload, User } from 'lucide-react';
+import { Save, Edit, User } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const StudentInfoCard = ({ studentData, onUpdate }) => {
   const [editableData, setEditableData] = useState({
     orcidId: '',
-    researchArea: '',
-    admissionScheme: ''
+    researchArea: ''
   });
   const [profileImage, setProfileImage] = useState(studentData.profilePicture);
-  const fileInputRef = useRef(null);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     const fetchStudentData = async () => {
@@ -25,14 +24,11 @@ const StudentInfoCard = ({ studentData, onUpdate }) => {
 
         if (response.data) {
           const { orcid, areaofresearch, admissionscheme } = response.data;
-
           setEditableData({
-            orcidId: orcid || '',               // Ensure it's not null
-            researchArea: areaofresearch || '',  // Ensure it's not null
-            admissionScheme: admissionscheme || ''
+            orcidId: orcid || '',
+            researchArea: areaofresearch || '',
+            admissionScheme: admissionscheme || '' // Keep admission scheme read-only
           });
-
-          console.log("Fetched Data:", response.data); // Verify the fetched data
         }
       } catch (error) {
         console.error("Error fetching student data:", error);
@@ -48,53 +44,37 @@ const StudentInfoCard = ({ studentData, onUpdate }) => {
   };
 
   const handleSave = () => {
-    axios.put(`http://localhost:8080/api/students/${studentData.rollNumber}`, editableData)
+    axios.put(`http://localhost:8080/api/students/${studentData.rollNumber}`, {
+      rollNumber: studentData.rollNumber,  // ✅ Include roll number
+    name: studentData.name,              // ✅ Keep other fields unchanged
+    email: studentData.email,
+    orcid: editableData.orcidId,         // ✅ Match backend field names
+    areaofresearch: editableData.researchArea
+      // orcidId: editableData.orcidId,
+      // researchArea: editableData.researchArea
+    })
       .then(() => {
         alert("Data saved successfully!");
         if (onUpdate) onUpdate(editableData);
+        setIsEditing(false);
       })
       .catch(error => console.error("Error saving data:", error));
   };
-
-  const handleImageClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setProfileImage(e.target.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  
 
   return (
     <Card className="w-full glass">
       <CardHeader>
         <CardTitle className="text-xl text-primary">Student Information</CardTitle>
       </CardHeader>
+
       <CardContent className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="flex flex-col items-center gap-4">
-          <div className="relative group cursor-pointer" onClick={handleImageClick}>
-            <Avatar className="h-32 w-32 group-hover:opacity-80">
-              <AvatarImage src={profileImage} alt={studentData.name} />
-              <AvatarFallback><User className="h-12 w-12" /></AvatarFallback>
-            </Avatar>
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/50 rounded-full">
-              <Upload className="text-white h-6 w-6" />
-            </div>
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleImageChange}
-              className="hidden"
-              accept="image/*"
-            />
-          </div>
-          <span className="text-sm text-muted-foreground">Click to upload photo</span>
+          <Avatar className="h-32 w-32">
+            <AvatarImage src={profileImage} alt={studentData.name} />
+            <AvatarFallback><User className="h-12 w-12" /></AvatarFallback>
+          </Avatar>
+          <span className="text-sm text-muted-foreground">Profile Picture</span>
         </div>
         
         <div className="lg:col-span-2 space-y-4">
@@ -121,16 +101,16 @@ const StudentInfoCard = ({ studentData, onUpdate }) => {
                 value={editableData.orcidId}
                 onChange={handleChange}
                 placeholder="Enter ORCID ID"
+                disabled={!isEditing}
               />
             </div>
 
             <div>
               <label className="text-sm font-medium text-muted-foreground">Admission Scheme</label>
               <Input
-                name="admissionScheme"
                 value={editableData.admissionScheme}
-                onChange={handleChange}
-                placeholder="Enter Admission Scheme"
+                readOnly
+                className="bg-muted/30"
               />
             </div>
           </div>
@@ -142,15 +122,21 @@ const StudentInfoCard = ({ studentData, onUpdate }) => {
               value={editableData.researchArea}
               onChange={handleChange}
               placeholder="Enter your Research Area"
+              disabled={!isEditing}
             />
           </div>
         </div>
       </CardContent>
 
-      <CardFooter className="flex justify-end">
-        <Button onClick={handleSave} className="gap-2">
-          <Save className="h-4 w-4" /> Save Changes
+      <CardFooter className="flex justify-end gap-4">
+        <Button onClick={() => setIsEditing(!isEditing)} className="gap-2" variant="outline">
+          <Edit className="h-4 w-4" /> {isEditing ? "Cancel" : "Edit"}
         </Button>
+        {isEditing && (
+          <Button onClick={handleSave} className="gap-2">
+            <Save className="h-4 w-4" /> Save Changes
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );

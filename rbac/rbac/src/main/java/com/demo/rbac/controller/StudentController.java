@@ -47,5 +47,23 @@ public class StudentController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+    @PutMapping("/{rollNumber}")
+public ResponseEntity<Student> updateStudent(@PathVariable String rollNumber, @RequestBody Student updatedStudent) {
+    Optional<Student> existingStudentOpt = studentService.getStudentByRollNumber(rollNumber);
+
+    if (existingStudentOpt.isPresent()) {
+        Student existingStudent = existingStudentOpt.get();
+
+        // Update fields
+        existingStudent.setOrcid(updatedStudent.getOrcid());
+        existingStudent.setAreaofresearch(updatedStudent.getAreaofresearch());
+
+        Student savedStudent = studentService.updateStudent(existingStudent);  // Save updated student
+        return ResponseEntity.ok(savedStudent);
+    } else {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+}
+
 
 }
