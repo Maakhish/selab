@@ -12,7 +12,7 @@ const mockStudentData = {
   degree: 'PhD',
   department: 'CSED',
   dateOfJoining: 'August 15, 2022',
-  admissionScheme: 'JRF',
+  admissionScheme: '',
   researchArea: '' // Initially blank so that student can update it
 };
 

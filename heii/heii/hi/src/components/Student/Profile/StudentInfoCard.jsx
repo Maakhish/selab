@@ -10,7 +10,8 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 const StudentInfoCard = ({ studentData, onUpdate }) => {
   const [editableData, setEditableData] = useState({
     orcidId: '',
-    researchArea: ''
+    researchArea: '',
+    admissionScheme: '' // Added admissionScheme in state
   });
   const [profileImage, setProfileImage] = useState(studentData.profilePicture);
   const [isEditing, setIsEditing] = useState(false);
@@ -27,7 +28,7 @@ const StudentInfoCard = ({ studentData, onUpdate }) => {
           setEditableData({
             orcidId: orcid || '',
             researchArea: areaofresearch || '',
-            admissionScheme: admissionscheme || '' // Keep admission scheme read-only
+            admissionScheme: admissionscheme || '' // Fetched admission scheme from backend
           });
         }
       } catch (error) {
@@ -45,13 +46,12 @@ const StudentInfoCard = ({ studentData, onUpdate }) => {
 
   const handleSave = () => {
     axios.put(`http://localhost:8080/api/students/${studentData.rollNumber}`, {
-      rollNumber: studentData.rollNumber,  // ✅ Include roll number
-    name: studentData.name,              // ✅ Keep other fields unchanged
-    email: studentData.email,
-    orcid: editableData.orcidId,         // ✅ Match backend field names
-    areaofresearch: editableData.researchArea
-      // orcidId: editableData.orcidId,
-      // researchArea: editableData.researchArea
+      rollNumber: studentData.rollNumber,  // Include roll number
+      name: studentData.name,              // Keep other fields unchanged
+      email: studentData.email,
+      orcid: editableData.orcidId,         // Match backend field names
+      areaofresearch: editableData.researchArea,
+      admissionscheme: editableData.admissionScheme  // Use fetched admission scheme
     })
       .then(() => {
         alert("Data saved successfully!");
@@ -60,7 +60,6 @@ const StudentInfoCard = ({ studentData, onUpdate }) => {
       })
       .catch(error => console.error("Error saving data:", error));
   };
-  
 
   return (
     <Card className="w-full glass">
@@ -108,7 +107,7 @@ const StudentInfoCard = ({ studentData, onUpdate }) => {
             <div>
               <label className="text-sm font-medium text-muted-foreground">Admission Scheme</label>
               <Input
-                value={studentData.admissionScheme}
+                value={editableData.admissionScheme} // Display value from state fetched from backend
                 readOnly
                 className="bg-muted/30"
               />
