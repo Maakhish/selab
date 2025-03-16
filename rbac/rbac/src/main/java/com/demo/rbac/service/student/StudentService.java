@@ -73,4 +73,16 @@ public class StudentService {
     public List<StudentGuideDTO> getAllStudentsWithGuides() {
         return studentRepository.findAllWithGuides(); // Fetch students along with guides
     }
+
+    public Optional<Student> findByEmail(String email) {
+        return studentRepository.findByEmail(email);
+    }
+
+    public Student saveStudent(Student student){
+        return studentRepository.save(student);
+    }
+
+    public Optional<Student> getStudentByRollNumber(String rollNumber) {
+        return studentRepository.findById(rollNumber);
+    }
 }

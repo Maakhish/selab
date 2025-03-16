@@ -63,6 +63,8 @@ public class SecurityConfig {
                         .requestMatchers("api/user/super").permitAll()
                         .requestMatchers("/api/students/upload").permitAll()
                         .requestMatchers("/api/students/all").permitAll()
+                        .requestMatchers("api/students/**").permitAll()
+                        .requestMatchers("/api/user/update-profile").permitAll()
                         .requestMatchers("/api/courses/all").permitAll()
                         .requestMatchers("/api/courses/upload").permitAll()
                         .requestMatchers("/api/results/upload").permitAll()
