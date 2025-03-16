@@ -108,7 +108,7 @@ const StudentInfoCard = ({ studentData, onUpdate }) => {
             <div>
               <label className="text-sm font-medium text-muted-foreground">Admission Scheme</label>
               <Input
-                value={editableData.admissionScheme}
+                value={studentData.admissionScheme}
                 readOnly
                 className="bg-muted/30"
               />
