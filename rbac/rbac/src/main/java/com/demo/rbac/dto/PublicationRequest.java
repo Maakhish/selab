@@ -1,7 +1,10 @@
 package com.demo.rbac.dto;
 
+<<<<<<< HEAD
 import java.time.LocalDate;
 
+=======
+>>>>>>> main
 import lombok.Data;
 
 @Data
@@ -14,6 +17,9 @@ public class PublicationRequest {
     private String quartile;
     private String status;
     private boolean sendCopyToCoordinator;
+<<<<<<< HEAD
      private LocalDate dateOfSubmission; 
+=======
+>>>>>>> main
 }
 

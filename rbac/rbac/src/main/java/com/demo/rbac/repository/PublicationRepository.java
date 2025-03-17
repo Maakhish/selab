@@ -9,5 +9,8 @@ public interface PublicationRepository extends JpaRepository<Publication, Long> 
 
     // ✅ Find publications by rollNo
     List<Publication> findByRollNo(String rollNo);
+<<<<<<< HEAD
     int countByRollNo(String rollNo);
+=======
+>>>>>>> main
 }

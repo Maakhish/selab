@@ -1,12 +1,19 @@
 package com.demo.rbac.service.student;
 
 import com.demo.rbac.dto.StudentGuideDTO;
+<<<<<<< HEAD
 
 import com.demo.rbac.dto.StudentUnderGuideDTO;
+=======
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+>>>>>>> main
 import com.demo.rbac.model.Student;
 import com.demo.rbac.model.Guide;
 import com.demo.rbac.repository.StudentRepository;
 import com.demo.rbac.repository.GuideRepository;
+<<<<<<< HEAD
 import com.demo.rbac.repository.PublicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +22,12 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+=======
+
+import java.io.InputStream;
+import java.util.List;
+import java.util.Optional;
+>>>>>>> main
 
 @Service
 public class StudentService {
@@ -26,6 +39,7 @@ public class StudentService {
     private GuideRepository guideRepository;
 
     @Autowired
+<<<<<<< HEAD
     private PublicationRepository publicationRepository;
 
     @Autowired
@@ -74,10 +88,56 @@ public class StudentService {
     /**
      * Fetches all students.
      */
+=======
+    private ExcelHelper excelHelper; // Inject ExcelHelper
+
+    public List<Student> saveStudentsFromExcel(MultipartFile file) {
+        try {
+            if (!ExcelHelper.hasExcelFormat(file)) {
+                throw new RuntimeException("Invalid Excel file format.");
+            }
+
+            InputStream inputStream = file.getInputStream();
+            List<Student> students = excelHelper.excelToStudents(inputStream); // Use instance method
+
+            for (Student student : students) {
+                Guide tempGuide = student.getGuide();
+
+                // Check if guide info is provided
+                if (tempGuide != null && tempGuide.getEmail() != null) {
+                    Optional<Guide> existingGuide = guideRepository.findByEmail(tempGuide.getEmail());
+
+                    Guide savedGuide = existingGuide.orElseGet(() -> {
+                        Guide newGuide = new Guide();
+                        newGuide.setName(tempGuide.getName());
+                        newGuide.setEmail(tempGuide.getEmail());
+                        return guideRepository.save(newGuide); // Save new guide
+                    });
+
+                    // Ensure the name is always updated
+                    if (existingGuide.isPresent() && tempGuide.getName() != null) {
+                        savedGuide.setName(tempGuide.getName());
+                        guideRepository.save(savedGuide);
+                    }
+
+                    student.setGuide(savedGuide); // Associate student with guide
+                } else {
+                    student.setGuide(null); // Handle students with no guide
+                }
+            }
+
+            return studentRepository.saveAll(students);  // Save students with correct guide
+        } catch (Exception e) {
+            throw new RuntimeException("Error saving students: " + e.getMessage());
+        }
+    }
+
+>>>>>>> main
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
     }
 
+<<<<<<< HEAD
     /**
      * Fetches all students along with their assigned guides.
      */
@@ -88,24 +148,37 @@ public class StudentService {
     /**
      * Fetches student by email.
      */
+=======
+    public List<StudentGuideDTO> getAllStudentsWithGuides() {
+        return studentRepository.findAllWithGuides(); // Fetch students along with guides
+    }
+
+>>>>>>> main
     public Optional<Student> findByEmail(String email) {
         return studentRepository.findByEmail(email);
     }
 
+<<<<<<< HEAD
     /**
      * Saves or updates a student.
      */
+=======
+>>>>>>> main
     public Student saveStudent(Student student) {
         return studentRepository.save(student);
     }
 
+<<<<<<< HEAD
     /**
      * Fetches student by roll number.
      */
+=======
+>>>>>>> main
     public Optional<Student> getStudentByRollNumber(String rollNumber) {
         return studentRepository.findById(rollNumber);
     }
 
+<<<<<<< HEAD
     /**
      * Updates student details.
      */
@@ -133,5 +206,14 @@ public class StudentService {
      */
     public int getPublicationCountForStudent(String rollNo) {
         return publicationRepository.countByRollNo(rollNo);
+=======
+    // ✅ NEW METHOD: Fetch student by username
+    // public Optional<Student> getStudentByUsername(String username) {
+    //     return studentRepository.findByUsername(username);
+    // }
+
+    public Student updateStudent(Student student) {
+        return studentRepository.save(student); // Save updated student details
+>>>>>>> main
     }
 }

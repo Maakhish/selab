@@ -1,5 +1,9 @@
 package com.demo.rbac.service;
 
+<<<<<<< HEAD
+=======
+import com.demo.rbac.model.Coordinator;
+>>>>>>> main
 import com.demo.rbac.repository.CoordinatorRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

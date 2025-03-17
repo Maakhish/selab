@@ -64,6 +64,10 @@ public class SecurityConfig {
                         .requestMatchers("/api/students/upload").permitAll()
                         .requestMatchers("/api/students/all").permitAll()
                         .requestMatchers("api/students/**").permitAll()
+<<<<<<< HEAD
+=======
+                        .requestMatchers("/api/dc-meetings/**").permitAll()
+>>>>>>> main
                         .requestMatchers("/api/user/update-profile").permitAll()
                         .requestMatchers("/api/courses/all").permitAll()
                         .requestMatchers("/api/courses/upload").permitAll()
@@ -71,8 +75,11 @@ public class SecurityConfig {
                         .requestMatchers("/api/results/all").permitAll()
                         .requestMatchers("/api/publications/get").permitAll()
                         .requestMatchers("/api/publications/**").permitAll()
+<<<<<<< HEAD
                         .requestMatchers("/api/guides/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
+=======
+>>>>>>> main
                         
                         .anyRequest().authenticated()
                 )

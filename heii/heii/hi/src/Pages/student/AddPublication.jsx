@@ -54,9 +54,14 @@ const AddPublication = () => {
     quartile: 'q1',
     status: 'Submitted',
     sendCopyToCoordinator: false,
+<<<<<<< HEAD
     dateOfSubmission: new Date().toISOString().split('T')[0],
   });
 console.log(formData);
+=======
+  });
+
+>>>>>>> main
   const [errors, setErrors] = useState({});
 
   const handleInputChange = (e) => {
@@ -77,9 +82,12 @@ console.log(formData);
 
   const handleSwitchChange = (checked) => {
     setFormData(prev => ({ ...prev, sendCopyToCoordinator: checked }));
+<<<<<<< HEAD
   };
   const handleBack = () => {
     navigate('/publication');
+=======
+>>>>>>> main
   };
 
   const validateForm = () => {
@@ -99,6 +107,7 @@ console.log(formData);
     e.preventDefault();
     if (!validateForm()) return;
     setLoading(true);
+<<<<<<< HEAD
   
     try {
       const payload = { ...formData, rollNo };
@@ -118,10 +127,41 @@ console.log(formData);
       }
     } catch (error) {
       toast({ title: "Error", description: "Failed to save publication. Please try again.", variant: "destructive" });
+=======
+
+    try {
+      const payload = { ...formData, rollNo }; // Include roll number in the request
+
+      const response = await fetch('http://localhost:8080/api/publications/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add publication');
+      }
+
+      toast({
+        title: "Success",
+        description: "Publication added successfully!",
+        variant: "default"
+      });
+
+      navigate('/publication');
+
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to save publication. Please try again.",
+        variant: "destructive"
+      });
+>>>>>>> main
     } finally {
       setLoading(false);
     }
   };
+<<<<<<< HEAD
   const handleReset = () => {
     setFormData({
       title: '',
@@ -135,6 +175,8 @@ console.log(formData);
     setErrors({});
   };
   
+=======
+>>>>>>> main
 
   return (
     <Layout>
@@ -197,6 +239,7 @@ console.log(formData);
                 </SelectContent>
               </Select>
 
+<<<<<<< HEAD
               {/* <Label>Send Copy to Coordinator</Label> */}
               {/* <Switch checked={formData.sendCopyToCoordinator} onCheckedChange={handleSwitchChange} /> */}
 
@@ -209,11 +252,20 @@ console.log(formData);
               <Button variant="outline" onClick={handleBack}>
                 Cancel
               </Button>
+=======
+              <Label>Send Copy to Coordinator</Label>
+              <Switch checked={formData.sendCopyToCoordinator} onCheckedChange={handleSwitchChange} />
+
+              <CardFooter className="flex justify-end">
+>>>>>>> main
                 <Button disabled={loading} type="submit">
                   {loading ? <RotateCcw className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />}
                   {loading ? "Submitting..." : "Submit"}
                 </Button>
+<<<<<<< HEAD
                 </div>
+=======
+>>>>>>> main
               </CardFooter>
             </form>
           </CardContent>
