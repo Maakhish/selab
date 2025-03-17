@@ -1,10 +1,7 @@
 package com.demo.rbac.controller;
 
 import com.demo.rbac.dto.StudentGuideDTO;
-<<<<<<< HEAD
 
-=======
->>>>>>> main
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +14,6 @@ import com.demo.rbac.service.student.StudentService;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
-<<<<<<< HEAD
-// import com.demo.rbac.dto.StudentPublicationDTO;
-=======
-
->>>>>>> main
 @RestController
 @RequestMapping("/api/students")
 @CrossOrigin(origins = "http://localhost:5173")

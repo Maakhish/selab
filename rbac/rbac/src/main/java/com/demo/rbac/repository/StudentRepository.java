@@ -20,7 +20,6 @@ public interface StudentRepository extends JpaRepository<Student, String> {
 
     Optional<Student> findByEmail(String email);
     boolean existsByEmail(String email);
-<<<<<<< HEAD
     
     @Query("SELECT s.roll, s.name, s.orcid, COUNT(p.id) " +
            "FROM Student s LEFT JOIN Publication p ON s.roll = p.rollNo " +  // Fixed JOIN
@@ -31,7 +30,7 @@ public interface StudentRepository extends JpaRepository<Student, String> {
     // ✅ Find student by roll number
     @Query("SELECT s FROM Student s WHERE s.roll = :roll")
     Optional<Student> findByRollNo(@Param("roll") String roll);
-=======
+
 
     List<Student> findByGuide_Email(String email);
 
@@ -39,5 +38,5 @@ public interface StudentRepository extends JpaRepository<Student, String> {
     // Optional<Student> findByUsername(String username);
     // @Query("SELECT s FROM Student s WHERE s.roll = :roll")
     // Optional<Student> findByRollNo(@Param("roll") String roll);
->>>>>>> main
+
 }
