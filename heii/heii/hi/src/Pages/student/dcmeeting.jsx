@@ -1,9 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Import axios for API calls
-import dayjs from "dayjs";
-import React,{ useState,useEffect } from 'react';
-import React, { useState, useEffect } from 'react';
+//import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // Import axios for API calls
 import dayjs from "dayjs";
 import Layout from '@/components/Student/layout/Layout';

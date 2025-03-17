@@ -1,35 +1,46 @@
-import React, { useEffect, useState } from "react";
+
+import React, { ReactNode } from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-// import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios'; // Don't forget to import axios
-// import axios from "axios";
 
 const PageLayout = ({ children }) => {
-  const [studentName, setStudentName] = useState("");
-
+    const [guideData, setGuideData] = useState([]);
+    const [loading, setLoading] = useState(true);
+      const [error, setError] = useState(null);
   useEffect(() => {
-    const fetchStudentName = async () => {
+    const fetchGuideData = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/user/super", {
-          withCredentials: true,
+        setLoading(true);
+        const response = await axios.get('http://localhost:8080/api/user/super', {
+          withCredentials: true
         });
-        setStudentName(response.data.name);
-      } catch (error) {
-        console.error("Error fetching student name:", error);
+
+        if (response.data && response.data.name && response.data.email) {
+          setGuideData(prevData => ({
+            ...prevData,
+            name: response.data.name,
+            email: response.data.email
+          }));
+        } else {
+          throw new Error('Invalid response format');
+        }
+      } catch (err) {
+        console.error('Error fetching guide data:', err);
+        setError('Failed to load guide data. Please try again later.');
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchStudentName();
+    fetchGuideData();
   }, []);
-
   return (
     <div className="flex h-screen overflow-hidden">
       <Sidebar />
       <div className="flex flex-col flex-1 overflow-hidden">
         <Header studentName={guideData?.name || 'Student'} />
-        <Header studentName={studentName} />
-
         <main className="flex-1 overflow-y-auto p-6">
           {children}
         </main>
