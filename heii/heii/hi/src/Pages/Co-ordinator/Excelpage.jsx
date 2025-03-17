@@ -46,6 +46,10 @@ const UploadExcel = () => {
       fetchStudents();
     }
   }, [fetchStudents]);
+  useEffect(() => {
+    console.log("Updated students state:", students);
+  }, [students]); // Log students whenever it updates
+  
 
   // Handle file upload
   const handleUpload = useCallback(async () => {
@@ -71,7 +75,7 @@ const UploadExcel = () => {
       console.log("Uploaded students:", data);
 
       setStudents(data);
-      setUploadSuccess(true);  // ✅ Ensure uploadSuccess updates
+      setUploadSuccess(true);
       localStorage.setItem("uploadCompleted", "true");
 
       toast.success("Student data processed", {
@@ -88,7 +92,8 @@ const UploadExcel = () => {
   // View students list
   const handleViewStudents = () => {
     setIsViewing(true);
-    fetchStudents(); // Ensure fresh data
+    fetchStudents(); // Ensure fresh data loads
+    console.log("View Students clicked. Students:", students);
   };
 
   return (
@@ -122,7 +127,7 @@ const UploadExcel = () => {
           </>
         ) : (
           <>
-            {/* View Students Button (Now appears correctly) */}
+            {/* View Students Button */}
             {uploadSuccess && (
               <div className="mt-6">
                 <Button onClick={handleViewStudents} className="flex items-center gap-2">
@@ -145,26 +150,32 @@ const UploadExcel = () => {
                       <tr className="bg-muted border-b border-border">
                         <th className="py-3 px-4 text-left">ID</th>
                         <th className="py-3 px-4 text-left">Name</th>
-                        <th className="py-3 px-4 text-left">Guide</th>
-                        <th className="py-3 px-4 text-left">Email</th>
+                        <th className="py-3 px-4 text-left">Student Email</th>
+                        <th className="py-3 px-4 text-left">Guide Name</th>
+                        <th className="py-3 px-4 text-left">Guide Email</th>
+                        
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-border">
-                      {students.map((student) => (
-                        <tr key={student.id} className="hover:bg-muted/50 transition-colors">
-                          <td className="py-3 px-4">{student.id}</td>
-                          <td className="py-3 px-4 flex items-center space-x-2">
-                            <User className="h-4 w-4 text-muted-foreground" />
-                            <span>{student.name}</span>
-                          </td>
-                          <td className="py-3 px-4 flex items-center space-x-2">
-                            <UserCog className="h-4 w-4 text-muted-foreground" />
-                            <span>{student.guide}</span>
-                          </td>
-                          <td className="py-3 px-4">{student.email}</td>
-                        </tr>
-                      ))}
-                    </tbody>
+  {students.map((student) => (
+    student ? (
+      <tr key={student.id} className="hover:bg-muted/50 transition-colors">
+        <td className="py-3 px-4">{student.studentId}</td>
+        <td className="py-3 px-4 flex items-center space-x-2">
+          <User className="h-4 w-4 text-muted-foreground" />
+          <span>{student.studentName}</span>
+        </td>
+        <td className="py-3 px-4">{student.studentEmail}</td>
+        <td className="py-3 px-4 flex items-center space-x-2">
+          <UserCog className="h-4 w-4 text-muted-foreground" />
+          <span>{student.guideName ? student.guideName : "No Guide Assigned"}</span>
+        </td>
+        <td className="py-3 px-4">{student.guideEmail ? student.guideEmail : "-"}</td>
+        
+      </tr>
+    ) : null
+  ))}
+</tbody>
                   </table>
                 </div>
               </div>
