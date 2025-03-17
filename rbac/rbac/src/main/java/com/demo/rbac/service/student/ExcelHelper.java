@@ -20,12 +20,7 @@ public class ExcelHelper {
             "application/vnd.ms-excel" // XLS
     );
 
-    // public ExcelHelper(GuideRepository guideRepository) {
-
-    private final GuideRepository guideRepository;
-
     public ExcelHelper(GuideRepository guideRepository) {
-        this.guideRepository = guideRepository;
     }
 
     public static boolean hasExcelFormat(MultipartFile file) {

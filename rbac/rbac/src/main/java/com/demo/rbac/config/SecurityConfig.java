@@ -74,6 +74,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/publications/**").permitAll()
                         .requestMatchers("/api/guides/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
+                        
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form.disable())

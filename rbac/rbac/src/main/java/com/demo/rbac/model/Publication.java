@@ -30,5 +30,4 @@ public class Publication {
 
     @Column(name = "date_of_submission")
     private LocalDate dateOfSubmission; // ✅ New field for submission date
-
 }
