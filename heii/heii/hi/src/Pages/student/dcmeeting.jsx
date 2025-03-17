@@ -1,3 +1,8 @@
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'; // Import axios for API calls
+import dayjs from "dayjs";
+import React,{ useState,useEffect } from 'react';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // Import axios for API calls
 import dayjs from "dayjs";
@@ -62,11 +67,10 @@ const DCMeetings = () => {
     } catch (error) {
       console.error("Error fetching meetings:", error);
     }
-  };
+  }
 
-  useEffect(() => {
-    fetchMeetings();
-  }, []);
+  // For editing a meeting (if needed)
+
 
   // ------------------------------------
   // Create or Submit Meeting
@@ -261,6 +265,37 @@ const DCMeetings = () => {
     );
   };
 
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/api/user/profile', {
+          withCredentials: true
+        });
+
+        // Ensure required keys are available from the response
+        if (response.data && response.data.name && response.data.email && response.data.rollNumber) {
+          setStudent(prevStudent => ({
+            ...prevStudent,
+            name: response.data.name,
+            email: response.data.email,
+            rollNumber: response.data.rollNumber,
+            // Map backend keys to local keys expected by StudentInfoCard:
+            orcidId: response.data.orcid,
+            researchArea: response.data.areaofresearch || ""
+          }));
+        } else {
+          throw new Error('Invalid response format');
+        }
+      } catch (error) {
+        console.error("Error fetching profile data:", error);
+      }
+    };
+
+    fetchProfileData();
+  }, []);
+  
+  
   return (
     <Layout>
       <div className="space-y-6">

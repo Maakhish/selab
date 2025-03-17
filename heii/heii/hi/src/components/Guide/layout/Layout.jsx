@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import axios from "axios";
+// import { useState, useEffect } from 'react';
+import axios from 'axios'; // Don't forget to import axios
+// import axios from "axios";
 
 const PageLayout = ({ children }) => {
   const [studentName, setStudentName] = useState("");
@@ -25,7 +27,9 @@ const PageLayout = ({ children }) => {
     <div className="flex h-screen overflow-hidden">
       <Sidebar />
       <div className="flex flex-col flex-1 overflow-hidden">
+        <Header studentName={guideData?.name || 'Student'} />
         <Header studentName={studentName} />
+
         <main className="flex-1 overflow-y-auto p-6">
           {children}
         </main>
