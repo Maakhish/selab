@@ -1,15 +1,21 @@
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { Home, User, Calendar, FileText, Book, GraduationCap, Bell, LogOut, ChevronLeft, ChevronRight } from "lucide-react";
+import { Home, User, Calendar, Book, Bell, LogOut, ChevronLeft, ChevronRight,  LayoutDashboard, 
+  GraduationCap, 
+  Users, 
+  BookOpen, 
+  FileText, 
+  CheckCircle, 
+  UserPlus} from "lucide-react";
 
 const navItems = [
-  { label: "Dashboard", href: "/index", icon: Home },
-  { label: "Profile", href: "/profile", icon: User },
-  { label: "DC Meetings", href: "/dcmeeting", icon: Calendar },
-  { label: "Comprehensive Exam", href: "/comprehensive_exam", icon: FileText },
-  { label: "Publications", href: "/publication", icon: Book },
-  { label: "SWAYAM Courses", href: "/swayam_course", icon: GraduationCap },
-  { label: "Notifications", href: "/notification", icon: Bell },
+  { label: "Dashboard", href: "/index2", icon: LayoutDashboard  },
+  { label: "Student Profiles", href: "/scholarprofile", icon: GraduationCap  },
+  { label: "DC Meetings", href: "/meetings_g", icon: Calendar  },
+  { label: "SWAYAM Courses", href: '/coursesg', icon: BookOpen  },
+  { label: 'Publications', href: '/publicationsg', icon: FileText },
+  { label: "Comprehensive Exam ", href: '/comprehensive-exam', icon: CheckCircle }
+  // { label: "Notifications", href: "/notification", icon: Bell },
 ];
 
 const Sidebar = () => {

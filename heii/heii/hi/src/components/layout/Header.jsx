@@ -1,6 +1,7 @@
+
 import React, { useState } from "react";
 import { Bell, Moon, Sun } from "lucide-react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -12,13 +13,14 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import NotificationPanel from "../ui/NotificationPanel";
+// import NotificationPanel from "../../ui/NotificationPanel";
 
-const Header = ({ studentName }) => {
+
+const Header= ({ studentName }) => {
   const [darkMode, setDarkMode] = useState(false);
-  const [notificationsOpen, setNotificationsOpen] = useState(false);
+  // const [notificationsOpen, setNotificationsOpen] = useState(false);
   const { toast } = useToast();
-  const navigate = useNavigate(); // Initialize navigation
+  const navigate = useNavigate();
 
   const toggleDarkMode = () => {
     const root = document.documentElement;
@@ -32,36 +34,40 @@ const Header = ({ studentName }) => {
   };
 
   const handleLogout = () => {
-    // Clear user session (if using localStorage, remove token here)
     localStorage.removeItem("authToken");
-
-    // Navigate to login page
     navigate("/");
   };
 
   return (
-    <header className="sticky top-0 z-20 w-full bg-background/80 backdrop-blur-sm border-b border-border">
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <h1 className="text-lg md:text-xl font-medium">
-          <span>Doctoral Students Portal</span>
+    <header className="sticky top-0 z-20 w-full bg-background/80 backdrop-blur-sm border-b border-border h-16">
+      <div className="h-full flex items-center justify-between px-4 md:px-6">
+        <h1 className="text-lg font-medium">
+          <span>Doctoral Student Portal</span>
         </h1>
 
-        <div className="flex items-center gap-4">
-          {/* Notifications */}
-          <Button variant="ghost" size="icon" onClick={() => setNotificationsOpen(!notificationsOpen)}>
+        <div className="flex items-center gap-2">
+          {/* <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={() => setNotificationsOpen(!notificationsOpen)}
+            className="transition-all-200 hover:bg-accent/10"
+          >
             <Bell className="h-5 w-5" />
           </Button>
-          <NotificationPanel open={notificationsOpen} onClose={() => setNotificationsOpen(false)} />
+          <NotificationPanel open={notificationsOpen} onClose={() => setNotificationsOpen(false)} /> */}
 
-          {/* Dark Mode Toggle */}
-          <Button variant="ghost" size="icon" onClick={toggleDarkMode}>
+          {/* <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={toggleDarkMode}
+            className="transition-all-200 hover:bg-accent/10"
+          >
             {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-          </Button>
+          </Button> */}
 
-          {/* User Profile Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-full">
+              <Button variant="ghost" size="icon" className="rounded-full overflow-hidden transition-all-200 hover:bg-accent/10">
                 <Avatar className="h-8 w-8">
                   <AvatarImage src="/placeholder.svg" alt={studentName} />
                   <AvatarFallback className="bg-primary text-primary-foreground">
@@ -73,11 +79,11 @@ const Header = ({ studentName }) => {
             <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuLabel>{studentName}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="cursor-pointer">Profile</DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer" onClick={()=> navigate('/profileg')}>Profile</DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem 
                 className="cursor-pointer text-destructive"
-                onClick={handleLogout} // Logout Action
+                onClick={handleLogout}
               >
                 Logout
               </DropdownMenuItem>

@@ -18,11 +18,12 @@ public class Publication {
     private Long id;
 
     private String title;
+    private String publishername;
     private String journal;
     private String doi;
     private String publicationType;
     private String status;
-    private boolean sendCopyToCoordinator;
+    private String indexing;
     private String quartile;
 
     @Column(name = "roll_no", nullable = false) // ✅ Store only a single roll number
