@@ -9,6 +9,7 @@ import java.util.List;
 @Repository
 public interface ApplicationRepository extends JpaRepository<Application, Long> {
 
-    List<Application> findByStudentRollNo(String rollNo);
+    List<Application> findByStudentEmail(String email);
 
+    List<Application> findByGuideId(Long guideId);
 }
